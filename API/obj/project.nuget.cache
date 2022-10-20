@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "p3BPNLy4vF/XjNq98YLzQ+Td5A6ZP6/cHkzBscreBN2aS4G+8659zCq/RIiAf4r0iPE67fQG6T1VZgadvOMfrQ==",
+  "success": true,
+  "projectFilePath": "/Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/API.csproj",
+  "expectedPackageFiles": [
+    "/Users/lthompson/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/lthompson/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/lthompson/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/Users/lthompson/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/Users/lthompson/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/Users/lthompson/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
