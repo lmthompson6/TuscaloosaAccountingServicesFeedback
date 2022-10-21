@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using API.Models;
+using API.Interfaces;
+using API.Database;
 
 namespace API.Controllers
 {
@@ -14,9 +17,10 @@ namespace API.Controllers
     {        // GET: api/Employee
         [EnableCors("OpenPolicy")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Employee> Get()
         {
-            return new string[] { "value1", "value2" };
+            IReadAllEmployees readObject = new ReadAllEmployees();
+            return readObject.GetAllEmployees();
         }
 
         // GET: api/Employee/5
@@ -30,8 +34,9 @@ namespace API.Controllers
         // POST: api/Employee
         [EnableCors("OpenPolicy")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult LoginAttempt(Employee employee)
         {
+         return ;
         }
 
         // PUT: api/Employee/5
