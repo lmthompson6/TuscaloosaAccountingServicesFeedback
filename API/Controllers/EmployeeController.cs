@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Cors;
 using API.Models;
 using API.Interfaces;
 using API.Database;
+using API.Hashing;
 
 namespace API.Controllers
 {
@@ -16,7 +17,7 @@ namespace API.Controllers
     public class EmployeeController : ControllerBase
     {        // GET: api/Employee
         [EnableCors("OpenPolicy")]
-        [HttpGet]
+        [HttpGet(Name = "GetEmployees")]
         public List<Employee> Get()
         {
             IReadAllEmployees readObject = new ReadAllEmployees();
@@ -25,18 +26,23 @@ namespace API.Controllers
 
         // GET: api/Employee/5
         [EnableCors("OpenPolicy")]
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetEmployee")]
+        public Employee Get(int id)
         {
-            return "value";
+            IReadEmployee read = new ReadAllEmployees();
+            return read.GetEmployee(id);
         }
 
         // POST: api/Employee
         [EnableCors("OpenPolicy")]
         [HttpPost]
-        public ActionResult LoginAttempt(Employee employee)
+        public bool Post([FromBody] Employee login)
         {
-         return ;
+            System.Console.WriteLine("Made it to post");
+            HashGen hasher = new HashGen();
+
+            bool isValid = hasher.CheckUser(login);
+            return isValid;
         }
 
         // PUT: api/Employee/5
