@@ -4,8 +4,8 @@ namespace API.Models
     {
        public int Emp_ID {get; set;}
        public string EmailAddress {get;set;}
-       public bool IsManager {get; set;}
-       public bool IsActive {get; set;}
+       public byte IsManager {get; set;}
+       public byte IsActive {get; set;}
        public string FirstName {get; set;}
        public string LastName {get; set;}
        public string PasswordHash {get; set;}
