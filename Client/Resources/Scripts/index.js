@@ -11,72 +11,40 @@ async function handleLoginClick(){
     const empId = document.getElementById("employeeId").value;
     const password = document.getElementById("typePasswordX-2").value;
 
-    // const employee = await fetch(GetUrl).then((response) => response.json());
-    // const filter = employee.filter((e) => e.emp_ID == empId);
-    // let emp = filter[0];
-
-    let loginUser = {
-        "Emp_ID" : 1,
-        "EmailAddress" : 'null',
-        "IsManager" : true,
-        "IsActive" : true,
-        "FirstName" : 'null',
-        "LastName" : 'null',
-        "PasswordHash" : password
-    }
-    console.log(loginUser)
+    //try{
+    const employee = await fetch(GetUrl).then((response) => response.json());
+    const filter = employee.filter((e) => e.emp_ID == empId);
+    let emp = filter[0];
+    try{
+    emp.PasswordHash = password    
     fetch(GetUrl, {
             method: 'POST',
             headers: {
                 "Accept": 'application/json',
                 "Content-Type" : 'application/json'
             },
-            body: JSON.stringify(loginUser)
+            body: JSON.stringify(emp)
     
-            }).then((response) => {
-                if(response){
-                    console.log('Correct Password')
+            }).then((response) => response.json()).then((json) =>{
+                console.log(json)
+                if(json && emp.isManager){
+                    window.location.assign("manager.html")
+                }
+                else if(json){
+                    window.location.assign("employee.html")
                 }
                 else{
-                    console.log('Incorrect Password')
+                    console.log("Stay on this page")
                 }
-      
             })
+    }
+    catch{
+        alert("Employee ID not found. Please try again")
+    }
+
+            
     
-    // const employee = await fetch(GetUrl).then((response) => response.json());
-    // console.log(employee);
-    // console.log(empId);
 
-    // const filter = employee.filter((e) => e.emp_ID == empId);
-    // let emp = filter[0];
-    // console.log(emp);
-
-    // fetch(GetUrl,{
-    //     method: 'POST',
-    //     headers: {
-    //         "Accept": 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(emp,password)
-
-    //     }).then((response) => {
-    //         if(response){
-    //             console.log('Correct Password')
-    //         }
-    //         else{
-    //             console.log('Incorrect Password')
-    //         }
-  
-    //     })
-    
-    // if (emp && emp.emp_ID)
-    // {
-    //     console.log(emp);
-    //     console.log(password)
-    //     if (emp.passwordHash == password){
-    //         console.log(emp);
-    //     }
-    // };
 }
 
 

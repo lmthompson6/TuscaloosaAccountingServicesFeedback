@@ -10,6 +10,7 @@ using API.Interfaces;
 using API.Database;
 using API.Hashing;
 
+
 namespace API.Controllers
 {
     [Route("api/[controller]")]
@@ -36,13 +37,16 @@ namespace API.Controllers
         // POST: api/Employee
         [EnableCors("OpenPolicy")]
         [HttpPost]
-        public bool Post([FromBody] Employee login)
+        public JsonResult Post([FromBody] Employee login)
         {
             System.Console.WriteLine("Made it to post");
             HashGen hasher = new HashGen();
-
+            System.Console.WriteLine("Employee in controller: "+login.Emp_ID);
             bool isValid = hasher.CheckUser(login);
-            return isValid;
+            JsonResult myResult = new JsonResult(isValid);
+            System.Console.WriteLine(myResult.Value);
+
+            return myResult;
         }
 
         // PUT: api/Employee/5
