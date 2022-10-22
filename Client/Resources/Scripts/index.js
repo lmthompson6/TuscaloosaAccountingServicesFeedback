@@ -27,14 +27,14 @@ async function handleLoginClick(){
     
             }).then((response) => response.json()).then((json) =>{
                 console.log(json)
-                if(json && emp.isManager){
+                if(json && emp.isManager && emp.isActive){
                     window.location.assign("manager.html")
                 }
-                else if(json){
+                else if(json && emp.isActive){
                     window.location.assign("employee.html")
                 }
                 else{
-                    console.log("Stay on this page")
+                    window.alert("Employee ID and Password combination do not match an active Employee on record.")  
                 }
             })
     }

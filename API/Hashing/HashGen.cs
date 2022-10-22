@@ -10,18 +10,18 @@ namespace API.Hashing
     {
         public bool CheckUser(Employee employee)
         {   
-            System.Console.WriteLine(employee.Emp_ID);
+            // System.Console.WriteLine(employee.Emp_ID);
             IReadAllEmployees readObject = new ReadAllEmployees();
             List<Employee> newList = readObject.GetAllEmployees();
             Employee myEmp = newList.Find(x => x.Emp_ID == employee.Emp_ID);
-            System.Console.WriteLine(myEmp.Emp_ID);
+            // System.Console.WriteLine(myEmp.Emp_ID);
             bool isValid = HashGenerator(employee.PasswordHash, myEmp);
             return isValid;
         }
         public bool HashGenerator(string plainText, Employee emp)
         {
-            System.Console.WriteLine(plainText);
-            System.Console.WriteLine(emp.Emp_ID);
+            // System.Console.WriteLine(plainText);
+            // System.Console.WriteLine(emp.Emp_ID);
             string s = ToSHA256(plainText);
             return VerifyHash(s, emp.PasswordHash);
         }
