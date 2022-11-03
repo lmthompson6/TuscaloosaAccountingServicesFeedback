@@ -39,7 +39,6 @@ namespace API.Controllers
         [HttpPost]
         public JsonResult Post([FromBody] Employee login)
         {
-            System.Console.WriteLine("Made it to post");
             HashGen hasher = new HashGen();
             System.Console.WriteLine("Employee in controller: "+login.Emp_ID);
             bool isValid = hasher.CheckUser(login);

@@ -27,7 +27,6 @@ namespace API.Hashing
         }
         public bool VerifyHash(string s, string passHash)
         {
-            System.Console.WriteLine("made it to verify");
             System.Console.WriteLine("Hash for plaintext entered:");
             System.Console.WriteLine(s);
             //PrintByteArray(s);

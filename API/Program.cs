@@ -31,7 +31,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors();
+app.UseCors("OpenPolicy");
 
 app.MapControllers();
 
