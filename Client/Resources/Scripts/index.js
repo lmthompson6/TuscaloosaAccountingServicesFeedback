@@ -64,6 +64,8 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
         html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
+        html+= "<td><button class='editbtn' id="+object.assign_ID+">View</button></td>"
     })
     })
 
@@ -87,12 +89,36 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
         html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
+        html+= "<td><button class='editbtn' id="+object.assign_ID+">View</button></td>"
     })
     })
 
     document.getElementById("Completed Tasks Table").innerHTML = html
 
 
+}
+
+function loadManagerTab(){
+    var x = document.getElementById("managertab");
+    x.style.display = "block";
+    var y = document.getElementById("employeetab")
+    y.style.display = "none";
+    var z = document.getElementById("tabBar2")
+    z.style.backgroundColor = "grey"
+    var a = document.getElementById("tabBar1")
+    a.style.backgroundColor = "crimson"
+}
+
+function loadEmployeeTab(){
+    var x = document.getElementById("employeetab");
+    x.style.display = "block";
+    var y = document.getElementById("managertab")
+    y.style.display = "none";
+    var z = document.getElementById("tabBar1")
+    z.style.backgroundColor = "grey"
+    var a = document.getElementById("tabBar2")
+    a.style.backgroundColor = "crimson"
 }
 
 

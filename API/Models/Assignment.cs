@@ -9,6 +9,7 @@ namespace API.Models
         public string DueDate {get; set;}
         public string StatusDate {get; set;}
         public string AssignTitle {get; set;}
+        public string AssignedBy {get; set;}
         
     }
 }

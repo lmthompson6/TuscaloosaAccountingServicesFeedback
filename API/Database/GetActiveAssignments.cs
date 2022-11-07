@@ -15,13 +15,14 @@ namespace API.Database
             con.Open();
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"SELECT Assign_ID, IsComplete, IsManagerApproved, AssignStatus, DATE_FORMAT(DueDate, '%m-%d-%Y') AS DueDate, DATE_FORMAT(StatusDate, '%m-%d-%Y') AS StatusDate, AssignTitle FROM assignment WHERE AssignedToEmp_ID = @id and IsManagerApproved = 0";
+            cmd.CommandText = @"SELECT a.Assign_ID, a.IsComplete, a.IsManagerApproved, a.AssignStatus, DATE_FORMAT(a.DueDate, '%m-%d-%Y') AS DueDate, DATE_FORMAT(a.StatusDate, '%m-%d-%Y') AS StatusDate, a.AssignTitle, concat(e.FirstName, ' ',e.LastName) as name FROM 
+            assignment a join employee e on (a.AssignedByEmp_ID = e.Emp_ID) WHERE AssignedToEmp_ID = @id and IsManagerApproved = 0";
             cmd.Parameters.AddWithValue("@id",id);
             cmd.Prepare();
             using MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
-                Assignment temp = new Assignment() {Assign_ID = rdr.GetInt16(0), IsComplete = rdr.GetBoolean(1), IsManagerApproved = rdr.GetBoolean(2), AssignStatus = rdr.GetString(3), DueDate = rdr.GetString(4), StatusDate = rdr.GetString(5), AssignTitle = rdr.GetString(6)};
+                Assignment temp = new Assignment() {Assign_ID = rdr.GetInt16(0), IsComplete = rdr.GetBoolean(1), IsManagerApproved = rdr.GetBoolean(2), AssignStatus = rdr.GetString(3), DueDate = rdr.GetString(4), StatusDate = rdr.GetString(5), AssignTitle = rdr.GetString(6), AssignedBy = rdr.GetString(7)};
                 activeAssignments.Add(temp);
             }
             return activeAssignments;
