@@ -28,8 +28,19 @@ namespace API.Controllers
         [HttpGet("{id}", Name = "GetCompleted")]
         public List<Assignment> GetCompleted(int id)
         {
-            IReadAllAssignments readlist = new GetCompletedAssignments();
-            return readlist.GetAssignments(id);;
+            IReadAllEmployees read = new ReadAllEmployees();
+            List<Employee> temp = read.GetAllEmployees();
+            foreach (Employee item in temp)
+            {
+                if(item.IsManager == true && item.Emp_ID==id){
+                System.Console.WriteLine("Employee is a manager");
+                IReadAllAssignments readlist = new GetManagerCompletedTasks();
+                return readlist.GetAssignments(id);
+            }
+            }
+                System.Console.WriteLine("Employee not a manager");
+                IReadAllAssignments reader = new GetCompletedAssignments();
+                return reader.GetAssignments(id);; 
         }
 
         // POST: api/CompletedAssignment

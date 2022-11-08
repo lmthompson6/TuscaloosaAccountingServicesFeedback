@@ -28,8 +28,20 @@ namespace API.Controllers
         [HttpGet("{id}", Name = "GetActive")]
         public List<Assignment> Get(int id)
         {
-            IReadAllAssignments readlist = new GetActiveAssignments();
-            return readlist.GetAssignments(id);;
+            IReadAllEmployees read = new ReadAllEmployees();
+            List<Employee> temp = read.GetAllEmployees();
+            foreach (Employee item in temp)
+            {
+                if(item.IsManager == true && item.Emp_ID==id){
+                System.Console.WriteLine("Employee is a manager");
+                IReadAllAssignments readlist = new GetManagerActiveTasks();
+                return readlist.GetAssignments(id);
+            }
+            }
+                System.Console.WriteLine("Employee not a manager");
+                IReadAllAssignments reader = new GetActiveAssignments();
+                return reader.GetAssignments(id);; 
+
         }
 
         // POST: api/Assignment

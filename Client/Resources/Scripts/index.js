@@ -33,6 +33,7 @@ async function handleLoginClick(){
                 console.log(json)
                 if(json && emp.isManager && emp.isActive){
                     window.location.assign("manager.html")
+                    window.localStorage.setItem('empId', empId)
                 }
                 else if(json && emp.isActive){
                     window.location.assign("employee.html")
@@ -65,7 +66,7 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
-        html+= "<td><button class='editbtn' id="+object.assign_ID+">View</button></td>"
+        html+= "<td><button class='editbtn' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
     })
     })
 
@@ -74,6 +75,8 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
 
 }
 
+//data-bs-toggle="modal"
+//data-bs-target="#RatingModal" role="tab" onclick="handleTableLoad()"
 async function handleCompletedTaskTable(empId = window.localStorage.getItem('empId')){
     const AssignURL = "https://localhost:7003/API/CompletedAssignment"
     var html = ""
@@ -90,7 +93,7 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
-        html+= "<td><button class='editbtn' id="+object.assign_ID+">View</button></td>"
+        html+= "<td><button class='editbtn' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleCompletedAssignmentModal()'>View</button></td>"
     })
     })
 
@@ -119,6 +122,46 @@ function loadEmployeeTab(){
     z.style.backgroundColor = "grey"
     var a = document.getElementById("tabBar2")
     a.style.backgroundColor = "crimson"
+    handleNewLoad()
 }
 
+async function handleActiveAssignmentModal(empId = window.localStorage.getItem('empId')){
+    const QuestionURL = "https://localhost:7003/API/Question"
+    var html = ""
+    var count = 1
+    await fetch(QuestionURL+"/"+2).then(async function (response) {
+        const data = await response.json();    
+        data.forEach(function(object){
+        html+="<div class='mb-3 row'><label class='col-form-label'>"+count+". "+object.questText+"</label>"
+        count+=1
+    })
+    })
 
+    document.getElementById("AssignmentActiveModalBody").innerHTML = html
+
+}
+async function handleCompletedAssignmentModal(empId = window.localStorage.getItem('empId')){
+    const QuestionURL = "https://localhost:7003/API/Question"
+    var html = ""
+    var count = 1
+    await fetch(QuestionURL+"/"+1).then(async function (response) {
+        const data = await response.json();    
+        data.forEach(function(object){
+        html+="<div class='mb-3 row'><label class='col-form-label'>"+count+". "+object.questText+"</label>"
+        count+=1
+    })
+    })
+
+    document.getElementById("AssignmentActiveModalBody").innerHTML = html
+
+
+}
+            //   <!-- <div class="mb-3 row">
+            //   <label for="staticEmail" class="col-form-label">Please enter the Driver's ID #</label>
+            //   </div>
+            //   <div class="mb-3 row">
+            //     <label for="inputPassword" class="col-sm-2 col-form-label">ID #:</label>
+            //     <div class="col-sm-10">
+            //       <input type="text" class="form-control" id="inputDriverID">
+            //     </div>
+            //   </div> -->
