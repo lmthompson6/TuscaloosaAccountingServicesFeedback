@@ -13,9 +13,9 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AssignmentController : ControllerBase
+    public class ManagerAssignmentController : ControllerBase
     {
-        // GET: api/Assignment
+        // GET: api/ManagerAssignment
         [EnableCors("OpenPolicy")]
         [HttpGet]
         public IEnumerable<string> Get()
@@ -23,40 +23,31 @@ namespace API.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Assignment/5
+        // GET: api/ManagerAssignment/5
         [EnableCors("OpenPolicy")]
-        [HttpGet("{id}", Name = "GetActive")]
-        public List<Assignment> Get(int id)
+        [HttpGet("{id}", Name = "GetAssigned")]
+        public List<Assignment> GetAssigned(int id)
         {
-            IReadAllEmployees read = new ReadAllEmployees();
-            List<Employee> temp = read.GetAllEmployees();
-            foreach (Employee item in temp)
-            {
-                if(item.IsManager == true && item.Emp_ID==id){
-                IReadAllAssignments readlist = new GetManagerActiveTasks();
+                IReadAllAssignments readlist = new GetManagerAssignedTasks();
                 return readlist.GetAssignments(id);
-            }
-            }
-                IReadAllAssignments reader = new GetActiveAssignments();
-                return reader.GetAssignments(id);; 
 
         }
 
-        // POST: api/Assignment
+        // POST: api/ManagerAssignment
         [EnableCors("OpenPolicy")]
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/Assignment/5
+        // PUT: api/ManagerAssignment/5
         [EnableCors("OpenPolicy")]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE: api/Assignment/5
+        // DELETE: api/ManagerAssignment/5
         [EnableCors("OpenPolicy")]
         [HttpDelete("{id}")]
         public void Delete(int id)

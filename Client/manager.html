@@ -24,6 +24,42 @@
       <button type="button" class="btn btn-secondary btn-square-md" data-bs-toggle='modal'
         data-bs-target='#ChooseAssignmentModal'>Create a Task</button>
     </div>
+    <p style="padding:15px;">
+      <h1 style="text-align: center">Assigned Tasks:</h1>
+      <table class="table align-middle mb-0 bg-white table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <th>Assignment Title</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Status as of</th>
+            <th>Assigned to</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="Assigned Tasks Table">
+  
+        </tbody>
+      </table>
+      </p>
+      <p style="padding:15px">
+      <h1 style="text-align: center">Completed Tasks:</h1>
+      <table class="table align-middle mb-0 bg-white table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <th>Assignment Title</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Status as of</th>
+            <th>Assigned to</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="Completed Tasks Table">
+  
+        </tbody>
+      </table>
+      </p>
     <div class="modal fade" id="ChooseAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -174,7 +210,7 @@
           <th>Status</th>
           <th>Due Date</th>
           <th>Status as of</th>
-          <th>Assigned by</th>
+          <th>Assigned to</th>
           <th></th>
         </tr>
       </thead>
@@ -192,11 +228,11 @@
           <th>Status</th>
           <th>Due Date</th>
           <th>Status as of</th>
-          <th>Assigned by</th>
+          <th>Assigned to</th>
           <th></th>
         </tr>
       </thead>
-      <tbody id="Completed Tasks Table">
+      <tbody id="Completed Tasks Table 2">
 
       </tbody>
     </table>

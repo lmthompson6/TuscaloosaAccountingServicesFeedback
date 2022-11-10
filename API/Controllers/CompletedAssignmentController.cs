@@ -33,12 +33,10 @@ namespace API.Controllers
             foreach (Employee item in temp)
             {
                 if(item.IsManager == true && item.Emp_ID==id){
-                System.Console.WriteLine("Employee is a manager");
                 IReadAllAssignments readlist = new GetManagerCompletedTasks();
                 return readlist.GetAssignments(id);
             }
             }
-                System.Console.WriteLine("Employee not a manager");
                 IReadAllAssignments reader = new GetCompletedAssignments();
                 return reader.GetAssignments(id);; 
         }

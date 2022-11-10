@@ -9,6 +9,11 @@ function handleNewLoad(){
     handleActiveTaskTable();
     handleCompletedTaskTable();
 }
+function handleNewManagerLoad(){
+    handleManagerActiveTaskTable()
+    handleAssignedTaskTable();
+    handleManagerCompletedTaskTable();
+}
 
 async function handleLoginClick(){
     const GetUrl = "https://localhost:7003/API/Employee"
@@ -74,7 +79,55 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
 
 
 }
+async function handleManagerActiveTaskTable(empId = window.localStorage.getItem('empId')){
+    const AssignURL = "https://localhost:7003/API/Assignment"
+    var html = ""
+    await fetch(AssignURL+"/"+empId).then(async function (response) {
+        const data = await response.json();    
+        const sortedData = data.sort((a,b)=> b.dueDate - a.dueDate)
+        sortedData.forEach(function(object){
+        html+="<tr>"
+        html+="<td>"
+        html+="<div class='d-flex align-items-center'>"
+        html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
+        html+="</div></td>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
+    })
+    })
 
+    document.getElementById("Active Tasks Table").innerHTML = html
+
+
+}
+
+async function handleAssignedTaskTable(empId = window.localStorage.getItem('empId')){
+    const AssignURL = "https://localhost:7003/API/ManagerAssignment"
+    var html = ""
+    await fetch(AssignURL+"/"+empId).then(async function (response) {
+        const data = await response.json();    
+        const sortedData = data.sort((a,b)=> b.dueDate - a.dueDate)
+        sortedData.forEach(function(object){
+        html+="<tr>"
+        html+="<td>"
+        html+="<div class='d-flex align-items-center'>"
+        html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
+        html+="</div></td>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
+    })
+    })
+
+    document.getElementById("Assigned Tasks Table").innerHTML = html
+
+
+}
 //data-bs-toggle="modal"
 //data-bs-target="#RatingModal" role="tab" onclick="handleTableLoad()"
 async function handleCompletedTaskTable(empId = window.localStorage.getItem('empId')){
@@ -101,6 +154,31 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
 
 
 }
+async function handleManagerCompletedTaskTable(empId = window.localStorage.getItem('empId')){
+    const AssignURL = "https://localhost:7003/API/CompletedAssignment"
+    var html = ""
+    await fetch(AssignURL+"/"+empId).then(async function (response) {
+        const data = await response.json();    
+        const sortedData = data.sort((a,b)=> b.dueDate - a.dueDate)
+        sortedData.forEach(function(object){
+        html+="<tr>"
+        html+="<td>"
+        html+="<div class='d-flex align-items-center'>"
+        html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
+        html+="</div></td>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
+        html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleCompletedAssignmentModal()'>View</button></td>"
+    })
+    })
+
+    document.getElementById("Completed Tasks Table").innerHTML = html
+    document.getElementById("Completed Tasks Table 2").innerHTML = html
+
+
+}
 
 function loadManagerTab(){
     var x = document.getElementById("managertab");
@@ -111,6 +189,7 @@ function loadManagerTab(){
     z.style.backgroundColor = "grey"
     var a = document.getElementById("tabBar1")
     a.style.backgroundColor = "crimson"
+    handleNewManagerLoad()
 }
 
 function loadEmployeeTab(){
@@ -122,7 +201,7 @@ function loadEmployeeTab(){
     z.style.backgroundColor = "grey"
     var a = document.getElementById("tabBar2")
     a.style.backgroundColor = "crimson"
-    handleNewLoad()
+    handleNewManagerLoad()
 }
 
 async function handleActiveAssignmentModal(empId = window.localStorage.getItem('empId')){
