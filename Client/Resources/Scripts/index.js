@@ -66,7 +66,7 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
-        html+= "<td><button class='editbtn' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
     })
     })
 
@@ -93,7 +93,7 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
-        html+= "<td><button class='editbtn' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleCompletedAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleCompletedAssignmentModal()'>View</button></td>"
     })
     })
 
