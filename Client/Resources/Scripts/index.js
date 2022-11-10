@@ -300,12 +300,42 @@ async function handleNewManagerAssignmentList(){
     })
 
 }
-            //   <!-- <div class="mb-3 row">
-            //   <label for="staticEmail" class="col-form-label">Please enter the Driver's ID #</label>
-            //   </div>
-            //   <div class="mb-3 row">
-            //     <label for="inputPassword" class="col-sm-2 col-form-label">ID #:</label>
-            //     <div class="col-sm-10">
-            //       <input type="text" class="form-control" id="inputDriverID">
-            //     </div>
-            //   </div> -->
+
+function createSelf(){
+    const AssignURL = "https://localhost:7003/API/Assignment"
+    const sendTo = document.getElementById('inputSelfID')
+    const sendfrom = window.localStorage.getItem('empId')
+    fetch(AssignURL, {
+        method: 'POST',
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type" : 'application/json'
+        },
+        body: JSON.stringify({
+            FirstName : first,
+            LastName : last,
+            HireDate : "02/01/2000"
+        })
+
+    })
+}
+function createPeer(){
+
+}
+function createManagerReview(){
+
+}
+//To be used in the creation functions:
+// fetch(baseURL, {
+//     method: 'POST',
+//     headers: {
+//         "Accept": 'application/json',
+//         "Content-Type" : 'application/json'
+//     },
+//     body: JSON.stringify({
+//         FirstName : first,
+//         LastName : last,
+//         HireDate : "02/01/2000"
+//     })
+
+// })
