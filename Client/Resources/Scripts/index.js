@@ -156,6 +156,71 @@ async function handleCompletedAssignmentModal(empId = window.localStorage.getIte
 
 
 }
+
+async function handleNewSelfAssignmentList(){
+    const ApiUrl = "https://localhost:7003/API/Employee"
+    var html = ""
+    fetch(ApiUrl).then(async function(response){
+        const data = await response.json();    
+        data.forEach(function(object){
+
+            if(object.isManager == false && object.isActive == true){
+                html+="<tr>"
+                html+="<td>"
+                html+="<div class='d-flex align-items-center'>"
+                html+="<p class='fw-bold mb-1'>"+object.emp_ID+"</p>"
+                html+="</div></td>"
+                html+="<td><p class='fw-bold mb-1'>"+object.firstName+"</p>"
+                html+="<td><p class='fw-bold mb-1'>"+object.lastName+"</p>"
+            }
+    })
+        document.getElementById("NewSelfModalBody").innerHTML = html
+    })
+
+}
+async function handleNewPeerAssignmentList(){
+    const ApiUrl = "https://localhost:7003/API/Employee"
+    var html = ""
+    fetch(ApiUrl).then(async function(response){
+        const data = await response.json();    
+        data.forEach(function(object){
+
+            if(object.isManager == false && object.isActive == true){
+                html+="<tr>"
+                html+="<td>"
+                html+="<div class='d-flex align-items-center'>"
+                html+="<p class='fw-bold mb-1'>"+object.emp_ID+"</p>"
+                html+="</div></td>"
+                html+="<td><p class='fw-bold mb-1'>"+object.firstName+"</p>"
+                html+="<td><p class='fw-bold mb-1'>"+object.lastName+"</p>"
+            }
+    })
+        document.getElementById("NewPeerModalBody").innerHTML = html
+    })
+
+}
+
+async function handleNewManagerAssignmentList(){
+    const ApiUrl = "https://localhost:7003/API/Employee"
+    var html = ""
+    fetch(ApiUrl).then(async function(response){
+        const data = await response.json();    
+        data.forEach(function(object){
+
+            if(object.isManager == false && object.isActive == true){
+                html+="<tr>"
+                html+="<td>"
+                html+="<div class='d-flex align-items-center'>"
+                html+="<p class='fw-bold mb-1'>"+object.emp_ID+"</p>"
+                html+="</div></td>"
+                html+="<td><p class='fw-bold mb-1'>"+object.firstName+"</p>"
+                html+="<td><p class='fw-bold mb-1'>"+object.lastName+"</p>"
+            }
+    })
+        document.getElementById("NewManagerModalBody").innerHTML = html
+    })
+
+}
             //   <!-- <div class="mb-3 row">
             //   <label for="staticEmail" class="col-form-label">Please enter the Driver's ID #</label>
             //   </div>
