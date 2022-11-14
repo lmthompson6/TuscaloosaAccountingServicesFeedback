@@ -364,8 +364,12 @@ async function handleNewManagerAssignmentList(){
 
 function createSelf(){
     const AssignURL = "https://localhost:7003/API/Assignment"
-    const sendTo = document.getElementById('inputSelfID')
-    const sendfrom = window.localStorage.getItem('empId')
+    const sendTo = document.getElementById('inputSelfID').value
+    const sendfrom = window.localStorage.getItem('empId').value
+    var DueTime = new Date();
+    DueTime.setDate(DueTime.getDate()+14);
+    var statusTime = new Date();
+    statusTime.setDate(statusTime.getDate())
     fetch(AssignURL, {
         method: 'POST',
         headers: {
@@ -373,9 +377,15 @@ function createSelf(){
             "Content-Type" : 'application/json'
         },
         body: JSON.stringify({
-            FirstName : first,
-            LastName : last,
-            HireDate : "02/01/2000"
+            Assign_ID : null,
+            IsComplete : 0,
+            IsManagerApproved : 0,
+            AssignStatus : 'Not Started :(',
+            DueDate : DueTime.toString(),
+            StatusDate : statusTime.toString(),
+            AssignTitle : 'Self Review',
+            AssignedBy : sendfrom,
+            AssignedTo : sendTo
         })
 
     })
@@ -386,17 +396,14 @@ function createPeer(){
 function createManagerReview(){
 
 }
-//To be used in the creation functions:
-// fetch(baseURL, {
-//     method: 'POST',
-//     headers: {
-//         "Accept": 'application/json',
-//         "Content-Type" : 'application/json'
-//     },
-//     body: JSON.stringify({
-//         FirstName : first,
-//         LastName : last,
-//         HireDate : "02/01/2000"
-//     })
 
-// })
+
+// public int Assign_ID {get; set;}
+// public bool IsComplete {get; set;}
+// public bool IsManagerApproved {get; set;}
+// public string AssignStatus {get; set;}
+// public string DueDate {get; set;}
+// public string StatusDate {get; set;}
+// public string AssignTitle {get; set;}
+// public string AssignedBy {get; set;}
+// public string AssignedTo {get; set;}

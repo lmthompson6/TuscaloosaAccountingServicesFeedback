@@ -45,8 +45,21 @@ namespace API.Controllers
         // POST: api/Assignment
         [EnableCors("OpenPolicy")]
         [HttpPost]
-        public void Post([FromBody] string value)
-        {
+        public void Post([FromBody] Assignment newAssignment)
+        {   
+            if(newAssignment.AssignTitle == "Self Review"){
+                ICreateAssignment newSelf = new CreateSelfReview();
+                newSelf.createAssignment(newAssignment);
+            }
+            else if(newAssignment.AssignTitle == "Peer Review"){
+                ICreateAssignment newPeer = new CreatePeerReview();
+                newPeer.createAssignment(newAssignment);
+
+            }
+            else if(newAssignment.AssignTitle == "Manager Review"){
+                ICreateAssignment newMan = new CreateManagerReview();
+                newMan.createAssignment(newAssignment);
+            }
         }
 
         // PUT: api/Assignment/5
