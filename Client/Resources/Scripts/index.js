@@ -67,7 +67,19 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
         html+="<div class='d-flex align-items-center'>"
         html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
         html+="</div></td>"
-        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        if(object.assignStatus == "Completed ☑"){
+            html+="<td style='background-color:green;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Overdue !!"){
+            html+="<td style='background-color:red;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ..."){
+            html+="<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+
+        }
+        else{
+            html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        }
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
@@ -91,7 +103,19 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
         html+="<div class='d-flex align-items-center'>"
         html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
         html+="</div></td>"
-        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        if(object.assignStatus == "Completed ☑"){
+            html+="<td style='background-color:green;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Overdue !!"){
+            html+="<td style='background-color:red;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ..."){
+            html+="<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+
+        }
+        else{
+            html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        }
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
@@ -116,7 +140,19 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
         html+="<div class='d-flex align-items-center'>"
         html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
         html+="</div></td>"
-        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        if(object.assignStatus == "Completed ☑"){
+            html+="<td style='background-color:green;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Overdue !!"){
+            html+="<td style='background-color:red;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ..."){
+            html+="<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+
+        }
+        else{
+            html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        }
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
@@ -142,7 +178,19 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
         html+="<div class='d-flex align-items-center'>"
         html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
         html+="</div></td>"
-        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        if(object.assignStatus == "Completed ☑"){
+            html+="<td style='background-color:green;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Overdue !!"){
+            html+="<td style='background-color:red;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ..."){
+            html+="<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+
+        }
+        else{
+            html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        }
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
@@ -166,7 +214,20 @@ async function handleManagerCompletedTaskTable(empId = window.localStorage.getIt
         html+="<div class='d-flex align-items-center'>"
         html+="<p class='fw-bold mb-1'>"+object.assignTitle+"</p>"
         html+="</div></td>"
-        html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+
+        if(object.assignStatus == "Completed ☑"){
+            html+="<td style='background-color:green;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Overdue !!"){
+            html+="<td style='background-color:red;color:white'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+        }
+        else if(object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ..."){
+            html+="<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"            
+
+        }
+        else{
+            html+="<td><p class='fw-bold mb-1'>"+object.assignStatus+"</p>"
+        }
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
