@@ -393,7 +393,7 @@ function createSelf(){
 function createPeer(){
 
 }
-function createManagerReview(){
+function createEmployeeSurvey(){
 
 }
 
