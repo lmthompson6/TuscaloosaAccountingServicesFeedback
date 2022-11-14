@@ -246,3 +246,6 @@
 /Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/bin/Debug/net6.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
 /Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/bin/Debug/net6.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/bin/Debug/net6.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
+/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/obj/Debug/net6.0/API.dll
+/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/obj/Debug/net6.0/ref/API.dll
+/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/obj/Debug/net6.0/API.pdb

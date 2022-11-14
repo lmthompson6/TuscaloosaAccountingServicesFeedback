@@ -15,7 +15,7 @@ namespace API.Database
             con.Open();
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"SELECT a.Assign_ID, a.IsComplete, a.IsManagerApproved, a.AssignStatus, DATE_FORMAT(a.DueDate, '%m-%d-%Y') AS DueDate, DATE_FORMAT(a.StatusDate, '%m-%d-%Y') AS StatusDate, a.AssignTitle, concat(e.FirstName, ' ',e.LastName) as name FROM 
+            cmd.CommandText = @"SELECT a.Assign_ID, a.IsComplete, a.IsManagerApproved, a.AssignStatus, DATE_FORMAT(a.DueDate, '%m-%d-%Y %r') AS DueDate, DATE_FORMAT(a.StatusDate, '%m-%d-%Y %r') AS StatusDate, a.AssignTitle, concat(e.FirstName, ' ',e.LastName) as name FROM 
             assignment a join employee e on (a.AssignedByEmp_ID = e.Emp_ID) WHERE AssignedToEmp_ID = @id and IsManagerApproved = 0";
             cmd.Parameters.AddWithValue("@id",id);
             cmd.Prepare();
