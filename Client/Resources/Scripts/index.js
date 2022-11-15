@@ -464,6 +464,10 @@ function createEmployeeSurvey(){
     })
 }
 
+function markCompleted(){
+    
+}
+
 function updateSelfReview(){
 
 }
@@ -480,7 +484,7 @@ function updateEmpSurvey(){
 
 }
 function submitEmpSurvey(){
-    
+
 }
 
 
