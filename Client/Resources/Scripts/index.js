@@ -464,6 +464,25 @@ function createEmployeeSurvey(){
     })
 }
 
+function updateSelfReview(){
+
+}
+function submitSelfReview(){
+
+}
+function updatePeerReview(){
+
+}
+function sumbitPeerReview(){
+
+}
+function updateEmpSurvey(){
+
+}
+function submitEmpSurvey(){
+    
+}
+
 
 // public int Assign_ID {get; set;}
 // public bool IsComplete {get; set;}

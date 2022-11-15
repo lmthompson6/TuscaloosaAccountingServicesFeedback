@@ -23,7 +23,36 @@ namespace API.Database
             cmd.Parameters.AddWithValue("@assignedto", newAssign.AssignedTo);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
+            int newestAssign = getMaxAssignment();
+            int questionNum = 14;
+            for(int i = 0;i < 8; i++){
+                using var command = new MySqlCommand();
+                command.Connection = con;
+                command.CommandText = @"INSERT INTO Responses values (null, null, null, @id, @questNum)";
+                command.Parameters.AddWithValue("@id", newestAssign);   
+                command.Parameters.AddWithValue("@questNum", questionNum);
+                command.Prepare();
+                command.ExecuteNonQuery();
+                questionNum++;             
+            }
+        }
 
+        public int getMaxAssignment(){
+            ConnectionString myConnection = new ConnectionString();
+            string cs = myConnection.cs;
+            using var con = new MySqlConnection(cs);
+            con.Open();
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"SELECT max(assign_ID) from assignment";
+            cmd.Prepare();
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+            int assignNumber = 0;
+            while (rdr.Read())
+            {
+                assignNumber = rdr.GetInt32(0);
+            }
+            return assignNumber;
         }
     }
 }
