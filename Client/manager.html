@@ -19,7 +19,7 @@
     <li><a style="background-color: crimson;" onclick="loadManagerTab()" id="tabBar1">Manager</a></li>
     <li><a style="background-color: gray;" onclick="loadEmployeeTab()" id="tabBar2">Employee</a></li>    
     <div style="text-align:right; padding-top: 10px;padding-right: 10px ">
-      <button type="button" class="btn btn-secondary btn-square-md" data-bs-toggle='modal'
+      <button type="button" class="btn btn-secondary btn-square-md" onclick="loadManagerTab()"data-bs-toggle='modal'
         data-bs-target='#ChooseAssignmentModal'>Create a Task</button>
     </div>
   </ul>
@@ -200,6 +200,49 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="AssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete a Task</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="AssignmentActiveModalBody">
+
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Save for Later</button>
+            <button type="button" class="btn btn-primary" onclick="">Complete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="CompletedAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete a Task</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="CompletedAssignmentModalBody">
+  
+  
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Dismiss</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="employeetab" style="display:none" onload=>
     <p style="padding:15px;">
@@ -238,7 +281,51 @@
       </tbody>
     </table>
     </p>
+    <div class="modal fade" id="AssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete a Task</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="AssignmentActiveModalBody">
+
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Save for Later</button>
+            <button type="button" class="btn btn-primary" onclick="">Complete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="CompletedAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete a Task</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="CompletedAssignmentModalBody">
+  
+  
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Dismiss</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </body>
 
 </html>

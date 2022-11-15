@@ -83,7 +83,7 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
-        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
     })
     })
 
@@ -119,7 +119,7 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
-        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
     })
     })
 
@@ -156,7 +156,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
-        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
     })
     })
 
@@ -194,7 +194,7 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedBy+"</p>"
-        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleCompletedAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id)'>View</button></td>"
     })
     })
 
@@ -231,7 +231,7 @@ async function handleManagerCompletedTaskTable(empId = window.localStorage.getIt
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
-        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleCompletedAssignmentModal()'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id)'>View</button></td>"
     })
     })
 
@@ -265,14 +265,15 @@ function loadEmployeeTab(){
     handleNewManagerLoad()
 }
 
-async function handleActiveAssignmentModal(empId = window.localStorage.getItem('empId')){
+async function handleActiveAssignmentModal(assignmentID){
     const QuestionURL = "https://localhost:7003/API/Question"
     var html = ""
     var count = 1
-    await fetch(QuestionURL+"/"+2).then(async function (response) {
+    await fetch(QuestionURL+"/"+assignmentID).then(async function (response) {
         const data = await response.json();    
         data.forEach(function(object){
         html+="<div class='mb-3 row'><label class='col-form-label'>"+count+". "+object.questText+"</label>"
+        html+="<input type='text' id="+object.quest_ID+" class='form-control validate'>"
         count+=1
     })
     })
@@ -280,11 +281,11 @@ async function handleActiveAssignmentModal(empId = window.localStorage.getItem('
     document.getElementById("AssignmentActiveModalBody").innerHTML = html
 
 }
-async function handleCompletedAssignmentModal(empId = window.localStorage.getItem('empId')){
+async function handleCompletedAssignmentModal(assignmentID){
     const QuestionURL = "https://localhost:7003/API/Question"
     var html = ""
     var count = 1
-    await fetch(QuestionURL+"/"+1).then(async function (response) {
+    await fetch(QuestionURL+"/"+assignmentID).then(async function (response) {
         const data = await response.json();    
         data.forEach(function(object){
         html+="<div class='mb-3 row'><label class='col-form-label'>"+count+". "+object.questText+"</label>"
@@ -292,7 +293,7 @@ async function handleCompletedAssignmentModal(empId = window.localStorage.getIte
     })
     })
 
-    document.getElementById("AssignmentActiveModalBody").innerHTML = html
+    document.getElementById("CompletedAssignmentModalBody").innerHTML = html
 
 
 }
