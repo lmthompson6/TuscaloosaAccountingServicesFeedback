@@ -56,7 +56,7 @@ namespace API.Controllers
                 newPeer.createAssignment(newAssignment);
 
             }
-            else if(newAssignment.AssignTitle == "Manager Review"){
+            else if(newAssignment.AssignTitle == "Employee Survey"){
                 ICreateAssignment newMan = new CreateManagerReview();
                 newMan.createAssignment(newAssignment);
             }

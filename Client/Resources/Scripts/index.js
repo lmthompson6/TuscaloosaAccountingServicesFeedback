@@ -365,11 +365,15 @@ async function handleNewManagerAssignmentList(){
 function createSelf(){
     const AssignURL = "https://localhost:7003/API/Assignment"
     const sendTo = document.getElementById('inputSelfID').value
-    const sendfrom = window.localStorage.getItem('empId').value
+    const sendfrom = window.localStorage.getItem('empId')
+    console.log(sendTo)
+    console.log(sendfrom)
     var DueTime = new Date();
     DueTime.setDate(DueTime.getDate()+14);
     var statusTime = new Date();
     statusTime.setDate(statusTime.getDate())
+    console.log(DueTime.toString())
+    console.log(statusTime)
     fetch(AssignURL, {
         method: 'POST',
         headers: {
@@ -387,14 +391,76 @@ function createSelf(){
             AssignedBy : sendfrom,
             AssignedTo : sendTo
         })
+        
 
     })
 }
 function createPeer(){
+    const AssignURL = "https://localhost:7003/API/Assignment"
+    const sendTo = document.getElementById('inputPeerID').value
+    const sendfrom = window.localStorage.getItem('empId')
+    console.log(sendTo)
+    console.log(sendfrom)
+    var DueTime = new Date();
+    DueTime.setDate(DueTime.getDate()+14);
+    var statusTime = new Date();
+    statusTime.setDate(statusTime.getDate())
+    console.log(DueTime.toString())
+    console.log(statusTime)
+    fetch(AssignURL, {
+        method: 'POST',
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type" : 'application/json'
+        },
+        body: JSON.stringify({
+            Assign_ID : 1,
+            IsComplete : false,
+            IsManagerApproved : false,
+            AssignStatus : 'Not Started :(',
+            DueDate : DueTime.toString(),
+            StatusDate : statusTime.toString(),
+            AssignTitle : 'Peer Review',
+            AssignedBy : sendfrom,
+            AssignedTo : sendTo
+        })
+        
+
+    })
 
 }
 function createEmployeeSurvey(){
+    const AssignURL = "https://localhost:7003/API/Assignment"
+    const sendTo = document.getElementById('inputMangerID').value
+    const sendfrom = window.localStorage.getItem('empId')
+    console.log(sendTo)
+    console.log(sendfrom)
+    var DueTime = new Date();
+    DueTime.setDate(DueTime.getDate()+14);
+    var statusTime = new Date();
+    statusTime.setDate(statusTime.getDate())
+    console.log(DueTime.toString())
+    console.log(statusTime)
+    fetch(AssignURL, {
+        method: 'POST',
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type" : 'application/json'
+        },
+        body: JSON.stringify({
+            Assign_ID : 1,
+            IsComplete : false,
+            IsManagerApproved : false,
+            AssignStatus : 'Not Started :(',
+            DueDate : DueTime.toString(),
+            StatusDate : statusTime.toString(),
+            AssignTitle : 'Employee Survey',
+            AssignedBy : sendfrom,
+            AssignedTo : sendTo
+        })
+        
 
+    })
 }
 
 
