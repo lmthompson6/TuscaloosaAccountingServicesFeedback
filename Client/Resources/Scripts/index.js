@@ -377,9 +377,9 @@ function createSelf(){
             "Content-Type" : 'application/json'
         },
         body: JSON.stringify({
-            Assign_ID : null,
-            IsComplete : 0,
-            IsManagerApproved : 0,
+            Assign_ID : 1,
+            IsComplete : false,
+            IsManagerApproved : false,
             AssignStatus : 'Not Started :(',
             DueDate : DueTime.toString(),
             StatusDate : statusTime.toString(),
