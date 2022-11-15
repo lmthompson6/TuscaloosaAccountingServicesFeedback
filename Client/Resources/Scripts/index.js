@@ -464,8 +464,15 @@ function createEmployeeSurvey(){
     })
 }
 
-function markCompleted(){
-    
+function markCompleted(id){
+    const deleteUrl = "https://localhost:7003/API/Assignment"+id
+
+    fetch(deleteUrl, {
+
+        method: 'DELETE'
+
+    })
+
 }
 
 function updateSelfReview(){
