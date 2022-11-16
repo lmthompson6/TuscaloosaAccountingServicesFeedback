@@ -482,7 +482,7 @@ function createEmployeeSurvey(){
 }
 
 function markCompleted(id = window.localStorage.getItem('activeAssignID')){
-    const deleteUrl = "https://localhost:7003/API/Assignment/"+id
+    const deleteUrl = "https://localhost:7003/API/CompletedAssignment/"+id
 
     fetch(deleteUrl, {
 
@@ -492,8 +492,19 @@ function markCompleted(id = window.localStorage.getItem('activeAssignID')){
         handleManagerActiveTaskTable()
         handleManagerCompletedTaskTable()
     })
-    
 
+}
+function markReopen(id = window.localStorage.getItem('activeAssignID')){
+    const reopenUrl = "https://localhost:7003/API/Assignment/"+id
+
+    fetch(reopenUrl, {
+
+        method: 'DELETE'
+
+    }).then(function(){
+        handleManagerActiveTaskTable()
+        handleManagerCompletedTaskTable()
+    })
 
 }
 

@@ -60,6 +60,8 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            MarkAsComplete newUpdate = new MarkAsComplete();
+            newUpdate.completeAssignment(id);
         }
     }
 }
