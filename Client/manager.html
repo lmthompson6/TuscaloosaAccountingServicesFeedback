@@ -281,7 +281,7 @@
       </tbody>
     </table>
     </p>
-    <div class="modal fade" id="AssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ManagerActiveAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -291,14 +291,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <form id="AssignmentActiveModalBody">
+            <form id="ManagerAssignmentActiveModalBody">
 
 
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Save for Later</button>
-            <button type="button" class="btn btn-primary" onclick="">Complete</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Reopen</button>
+            <button type="button" class="btn btn-success" onclick="markCompleted()">Certify</button>
           </div>
         </div>
       </div>

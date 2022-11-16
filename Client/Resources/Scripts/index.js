@@ -119,7 +119,7 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
         html+="<td><p class='fw-bold mb-1'>"+object.dueDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.statusDate+"</p>"
         html+="<td><p class='fw-bold mb-1'>"+object.assignedTo+"</p>"
-        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
+        html+= "<td><button class='btn btn-link' id="+object.assign_ID+" data-bs-toggle='modal' data-bs-target='#ManagerActiveAssignmentModal' onclick='handleManagerActiveAssignmentModal(this.id)'>View</button></td>"
     })
     })
 
@@ -279,6 +279,23 @@ async function handleActiveAssignmentModal(assignmentID){
     })
 
     document.getElementById("AssignmentActiveModalBody").innerHTML = html
+
+}
+async function handleManagerActiveAssignmentModal(assignmentID){
+    const QuestionURL = "https://localhost:7003/API/Question"
+    var html = ""
+    var count = 1
+    window.localStorage.setItem('activeAssignID', assignmentID)
+    await fetch(QuestionURL+"/"+assignmentID).then(async function (response) {
+        const data = await response.json();    
+        data.forEach(function(object){
+        html+="<div class='mb-3 row'><label class='col-form-label'>"+count+". "+object.questText+"</label>"
+        html+="<input type='text' id="+object.quest_ID+" class='form-control validate'>"
+        count+=1
+    })
+    })
+
+    document.getElementById("ManagerAssignmentActiveModalBody").innerHTML = html
 
 }
 async function handleCompletedAssignmentModal(assignmentID){
@@ -464,14 +481,19 @@ function createEmployeeSurvey(){
     })
 }
 
-function markCompleted(id){
-    const deleteUrl = "https://localhost:7003/API/Assignment"+id
+function markCompleted(id = window.localStorage.getItem('activeAssignID')){
+    const deleteUrl = "https://localhost:7003/API/Assignment/"+id
 
     fetch(deleteUrl, {
 
         method: 'DELETE'
 
+    }).then(function(){
+        handleManagerActiveTaskTable()
+        handleManagerCompletedTaskTable()
     })
+    
+
 
 }
 
