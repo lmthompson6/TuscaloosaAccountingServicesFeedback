@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TAS Feedback Portal </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Resources/CSS/index.css">
   </head>
   <body style="background-color: #D3D3D3;" onload="handleNewLoad()">
     <h1 style="text-align: center">TAS Employee Feedback Dashboard</h1>
@@ -63,7 +64,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Save for Later</button>
-            <button type="button" class="btn btn-primary" onclick="">Complete</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitReview()">Complete</button>
           </div>
         </div>
       </div>

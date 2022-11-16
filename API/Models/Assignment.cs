@@ -11,6 +11,7 @@ namespace API.Models
         public string AssignTitle {get; set;}
         public string AssignedBy {get; set;}
         public string AssignedTo {get; set;}
+        public int Assess_ID {get; set;}
         
     }
 }
