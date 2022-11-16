@@ -276,18 +276,6 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
         data.forEach(function (object) {
             html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
             if (object.questType == 'Rating') {
-                // html+="<div class='rate'>"
-                // html+="<input type='radio' id='star 5 "+object.quest_ID+"' name='rate' value='5' />"
-                // html+="<label for='star 5 "+object.quest_ID+"' title='text'>5 stars</label>"
-                // html+="<input type='radio' id='star 4 "+object.quest_ID+"' name='rate' value='4' />"
-                // html+="<label for='star 4 "+object.quest_ID+"' title='text'>4 stars</label>"
-                // html+="<input type='radio' id='star 3 "+object.quest_ID+"' name='rate' value='3' />"
-                // html+="<label for='star 3 "+object.quest_ID+"' title='text'>3 stars</label>"
-                // html+="<input type='radio' id='star 2 "+object.quest_ID+"' name='rate' value='2' />"
-                // html+="<label for='star 2 "+object.quest_ID+"' title='text'>2 stars</label>"
-                // html+="<input type='radio' id='star 1 "+object.quest_ID+"' name='rate' value='1' />"
-                // html+="<label for='star 1 "+object.quest_ID+"' title='text'>1 star</label>"
-                // html+="</div>"
                 html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' placeholder='Enter a number 0-5'>"
             }
             else {
@@ -527,20 +515,32 @@ function markReopen(id = window.localStorage.getItem('activeAssignID')) {
     })
 
 }
+function getResponse(){
+    const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
+    var completedForm = document.getElementById('AssignmentActiveModalBody')
+    Array.from(completedForm.elements).forEach(element => {
+        console.log(element.id)
+            fetch(ResponseURL, {
+                method: 'POST',
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    Response_ID: 1,
+                    AnswerText: element.value,
+                    Rating: 0,
+                    Assign_ID: window.localStorage.getItem('activeAssignID'),
+                    Quest_ID: element.id
 
-// function determineSubmit(){
-//     var assessmentID = window.localStorage.getItem('activeAssessmentID')
-//     if(assessmentID == 1){
-//         submitSelfReview()
+                })
 
-//     }
-//     else if(assessmentID == 2){
-//         sumbitPeerReview()
-//     }
-//     else if(assessmentID == 3){
-//         submitEmpSurvey()
-//     }
-// }
+            })
+
+
+    })
+}
+
 
 function updateSelfReview() {
 
@@ -614,15 +614,7 @@ function submitReview() {
 function updatePeerReview() {
 
 }
-function sumbitPeerReview() {
-
-
-}
 function updateEmpSurvey() {
-
-}
-function submitEmpSurvey() {
-
 
 }
 

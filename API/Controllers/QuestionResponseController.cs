@@ -26,9 +26,12 @@ namespace API.Controllers
         // GET: api/QuestionResponse/5
         [EnableCors("OpenPolicy")]
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Response Get(int assignID, [FromBody] int questID)
         {
-            return "value";
+            Response newResponse = new Response();
+            IReadResponse responder = new GetResponse();
+            newResponse = responder.GetAResponse(assignID, questID);
+            return newResponse;
         }
 
         // POST: api/QuestionResponse
@@ -52,7 +55,7 @@ namespace API.Controllers
         // PUT: api/QuestionResponse/5
         [EnableCors("OpenPolicy")]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int assignID, [FromBody] int questionID)
         {
         }
 
