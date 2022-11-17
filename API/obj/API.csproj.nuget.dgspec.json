@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/API.csproj": {}
+    "/Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/API.csproj": {}
   },
   "projects": {
-    "/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/API.csproj": {
+    "/Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/API.csproj",
+        "projectUniqueName": "/Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/API.csproj",
-        "packagesPath": "/Users/jademcgee/.nuget/packages/",
-        "outputPath": "/Users/jademcgee/321/TuscaloosaAccountingServicesFeedback/API/obj/",
+        "projectPath": "/Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/API.csproj",
+        "packagesPath": "/Users/lthompson/.nuget/packages/",
+        "outputPath": "/Users/lthompson/Source/Repose/TuscaloosaAccountingServicesFeedback/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jademcgee/.nuget/NuGet/NuGet.Config"
+          "/Users/lthompson/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,7 +58,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -69,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     }

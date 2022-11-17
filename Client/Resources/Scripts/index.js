@@ -276,7 +276,7 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
         data.forEach(function (object) {
             html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
             if (object.questType == 'Rating') {
-                html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' placeholder='Enter a number 0-5'>"
+                html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+getResponse(object.quest_ID)+"'>"
             }
             else {
                 html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' placeholder='Enter Text'>"
@@ -515,26 +515,21 @@ function markReopen(id = window.localStorage.getItem('activeAssignID')) {
     })
 
 }
-function getResponse(){
+function getResponse(questID){
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
-    var completedForm = document.getElementById('AssignmentActiveModalBody')
-    Array.from(completedForm.elements).forEach(element => {
-        console.log(element.id)
-            fetch(ResponseURL, {
-                method: 'POST',
+            fetch(ResponseURL+window.localStorage.getItem('activeAssignID'), {
+                method: 'PUT',
                 headers: {
                     "Accept": 'application/json',
                     "Content-Type": 'application/json'
                 },
                 body: JSON.stringify({
-                    Response_ID: 1,
-                    AnswerText: element.value,
-                    Rating: 0,
-                    Assign_ID: window.localStorage.getItem('activeAssignID'),
-                    Quest_ID: element.id
+                    questID: questID,
                 })
+            }).then(function(response){
+                console.log(response)
             })
-        })
+
     }
 
 
