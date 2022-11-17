@@ -1,18 +1,26 @@
+
 function handleOnLoad() {
     const ApiUrl = "https://localhost:7003/API/Employee"
     fetch(ApiUrl).then(function (response) {
         console.log(response)
         return response.json();
     })
+   
+    
 }
 function handleNewLoad() {
     handleActiveTaskTable();
     handleCompletedTaskTable();
+
 }
 function handleNewManagerLoad() {
     handleManagerActiveTaskTable()
     handleAssignedTaskTable();
     handleManagerCompletedTaskTable();
+    
+    $(document).ready( function () {
+        $('.make-jquery-table').DataTable();
+    } );
 }
 
 async function handleLoginClick() {
@@ -124,7 +132,8 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
     })
 
     document.getElementById("Active Tasks Table").innerHTML = html
-
+   
+    
 
 }
 
@@ -161,7 +170,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
     })
 
     document.getElementById("Assigned Tasks Table").innerHTML = html
-
+   
 
 }
 //data-bs-toggle="modal"
@@ -533,41 +542,41 @@ function getResponse(questID){
     }
 
 
-function filter(e){
-   let results; 
-   let temp = " "; 
+// function filter(e){
+//    let results; 
+//    let temp = " "; 
 
-   results = table.filter( item => 
-   item.assignedTo.includes(e.target.value.toLowerCase()));
+//    results = table.filter( item => 
+//    item.assignedTo.includes(e.target.value.toLowerCase()));
 
-    if(results.length>0){
-        fetch(AssignURL, {
-            method: 'POST',
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type" : 'application/json'
-            },
-            body: JSON.stringify({
-                Assign_ID : 1,
-                IsComplete : false,
-                IsManagerApproved : false,
-                AssignStatus : 'Not Started :(',
-                DueDate : DueTime.toString(),
-                StatusDate : statusTime.toString(),
-                AssignTitle : 'Self Review',
-                AssignedBy : sendfrom,
-                AssignedTo : sendTo
-            })
+//     if(results.length>0){
+//         fetch(AssignURL, {
+//             method: 'POST',
+//             headers: {
+//                 "Accept": 'application/json',
+//                 "Content-Type" : 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 Assign_ID : 1,
+//                 IsComplete : false,
+//                 IsManagerApproved : false,
+//                 AssignStatus : 'Not Started :(',
+//                 DueDate : DueTime.toString(),
+//                 StatusDate : statusTime.toString(),
+//                 AssignTitle : 'Self Review',
+//                 AssignedBy : sendfrom,
+//                 AssignedTo : sendTo
+//             })
             
     
-        })
-    }else {
-        temp = `<div class = "no-item =Item Not Found </div>`
-    }
-    output.innerHTML=temp;
-}
+//         })
+//     }else {
+//         temp = `<div class = "no-item =Item Not Found </div>`
+//     }
+//     output.innerHTML=temp;
+// }
 
-    
+
 function updateSelfReview(){
 
 }
