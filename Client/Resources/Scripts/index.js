@@ -532,13 +532,49 @@ function getResponse(){
                     Rating: 0,
                     Assign_ID: window.localStorage.getItem('activeAssignID'),
                     Quest_ID: element.id
-
                 })
-
             })
+        })
+    }
 
 
-    })
+function filter(e){
+   let results; 
+   let temp = " "; 
+
+   results = table.filter( item => 
+   item.assignedTo.includes(e.target.value.toLowerCase()));
+
+    if(results.length>0){
+        fetch(AssignURL, {
+            method: 'POST',
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type" : 'application/json'
+            },
+            body: JSON.stringify({
+                Assign_ID : 1,
+                IsComplete : false,
+                IsManagerApproved : false,
+                AssignStatus : 'Not Started :(',
+                DueDate : DueTime.toString(),
+                StatusDate : statusTime.toString(),
+                AssignTitle : 'Self Review',
+                AssignedBy : sendfrom,
+                AssignedTo : sendTo
+            })
+            
+    
+        })
+    }else {
+        temp = `<div class = "no-item =Item Not Found </div>`
+    }
+    output.innerHTML=temp;
+}
+
+    
+function updateSelfReview(){
+
 }
 
 
