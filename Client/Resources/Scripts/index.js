@@ -285,26 +285,21 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
         data.forEach(async function (object){
             var text = await getTextResponse(object.quest_ID)
             var rating = await getRatingResponse(object.quest_ID)
-            settimeout(()=>{
-                html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
-            }, 10000)
-            // html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            
+            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
             if (object.questType == 'Rating') {
-                settimeout(()=>{
+                
                     html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+rating+"'>"
-                }, 10000)
-                // html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+rating+"'>"
+                
             }
             else {
-                settimeout(()=>{
-                    html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' value="+text+">"                }, 10000)
+                
+                    html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' value="+text+">"               
 
-                // html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' value="+text+">"
             }
-            settimeout(() =>{
+
             html += "</div>"
             count += 1
-            }, 10000)
 
         })
     })
