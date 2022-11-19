@@ -18,9 +18,10 @@ namespace API.Controllers
         // GET: api/QuestionResponse
         [EnableCors("OpenPolicy")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Response> Get()
         {
-            return new string[] { "value1", "value2" };
+            IReadResponse reader = new ReadAllResponses();
+            return reader.GetResponse();
         }
 
         // GET: api/QuestionResponse/5
@@ -29,8 +30,6 @@ namespace API.Controllers
         public Response Get(int id, [FromBody] int questID)
         {
             Response newResponse = new Response();
-            IReadResponse responder = new GetResponse();
-            newResponse = responder.GetAResponse(id, questID);
             return newResponse;
         }
 
@@ -58,8 +57,6 @@ namespace API.Controllers
         public Response Put(int id, [FromBody] int questID)
         {
             Response newResponse = new Response();
-            IReadResponse responder = new GetResponse();
-            newResponse = responder.GetAResponse(id, questID);
             return newResponse;
         }
 

@@ -282,16 +282,30 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
     var count = 1
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
-        data.forEach(function (object) {
-            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+        data.forEach(async function (object){
+            var text = await getTextResponse(object.quest_ID)
+            var rating = await getRatingResponse(object.quest_ID)
+            settimeout(()=>{
+                html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            }, 10000)
+            // html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
             if (object.questType == 'Rating') {
-                html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+getResponse(object.quest_ID)+"'>"
+                settimeout(()=>{
+                    html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+rating+"'>"
+                }, 10000)
+                // html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+rating+"'>"
             }
             else {
-                html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' placeholder='Enter Text'>"
+                settimeout(()=>{
+                    html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' value="+text+">"                }, 10000)
+
+                // html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' value="+text+">"
             }
+            settimeout(() =>{
             html += "</div>"
             count += 1
+            }, 10000)
+
         })
     })
 
@@ -524,23 +538,34 @@ function markReopen(id = window.localStorage.getItem('activeAssignID')) {
     })
 
 }
-function getResponse(questID){
+function getTextResponse(questID){
+    var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
-            fetch(ResponseURL+window.localStorage.getItem('activeAssignID'), {
-                method: 'PUT',
-                headers: {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify({
-                    questID: questID,
-                })
-            }).then(function(response){
-                console.log(response)
-            })
+    fetch(ResponseURL).then(async function (response) {
+        const data = await response.json();
+        data.forEach(function (object) {
+            if(object.quest_ID == questID && object.assign_ID == activeAssignment){
+                console.log(object.answerText)
+                return object.answerText
+            }
+        })
+    })
 
-    }
+}
+function getRatingResponse(questID){
+    var activeAssignment = window.localStorage.getItem('activeAssignID')
+    const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
+    fetch(ResponseURL).then(async function (response) {
+        const data = await response.json();
+        data.forEach(function (object) {
+            if(object.quest_ID == questID && object.assign_ID == activeAssignment){
+                console.log(object.rating)
+                return object.rating
+            }
+        })
+    })
 
+}
 
 // function filter(e){
 //    let results; 
