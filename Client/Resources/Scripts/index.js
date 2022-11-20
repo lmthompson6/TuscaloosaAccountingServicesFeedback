@@ -173,8 +173,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
    
 
 }
-//data-bs-toggle="modal"
-//data-bs-target="#RatingModal" role="tab" onclick="handleTableLoad()"
+
 async function handleCompletedTaskTable(empId = window.localStorage.getItem('empId')) {
     const AssignURL = "https://localhost:7003/API/CompletedAssignment"
     var html = ""
@@ -240,7 +239,7 @@ async function handleManagerCompletedTaskTable(empId = window.localStorage.getIt
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedTo + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id)'>View</button></td>"
+            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id); loadManagerTab()'>View</button></td>"
         })
     })
 
@@ -283,20 +282,16 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
         data.forEach(async function (object){
-            // var text = await getTextResponse(object.quest_ID)
-            // var rating = await getRatingResponse(object.quest_ID)
             
             html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
             if (object.questType == 'Rating') {
                 
-                    //getRatingResponse(object.quest_ID, object.questText)
 
                     html += "<input type='number' id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=>"
                 
             }
             else {
-                    //getTextResponse(object.quest_ID, object.questText)
-
+ 
                     html += "<input type='text' id='" + object.quest_ID + "'class='form-control validate' value=''>"           
 
             }
@@ -308,8 +303,8 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
     })
 
     document.getElementById("AssignmentActiveModalBody").innerHTML = html
-    getRatingResponses('rate')
-    getTextResponses('string')
+    getRatingResponses('employee')
+    getTextResponses('employee')
 
 }
 
@@ -320,29 +315,63 @@ async function handleManagerActiveAssignmentModal(assignmentID) {
     window.localStorage.setItem('activeAssignID', assignmentID)
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
-        data.forEach(function (object) {
-            html += "<div class='mb-3 row'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
-            html += "<input type='text' id=" + object.quest_ID + " class='form-control validate'>"
+        data.forEach(async function (object){
+            
+            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            if (object.questType == 'Rating') {
+                
+
+                    html += "<input type='number' id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=>"
+                
+            }
+            else {
+ 
+                    html += "<input type='text' id='" + object.quest_ID + "'class='form-control validate' value=''>"           
+
+            }
+
+            html += "</div>"
             count += 1
+
         })
     })
-
     document.getElementById("ManagerAssignmentActiveModalBody").innerHTML = html
+    getRatingResponses('manager')
+    getTextResponses('manager')
+
 
 }
 async function handleCompletedAssignmentModal(assignmentID) {
     const QuestionURL = "https://localhost:7003/API/Question"
     var html = ""
     var count = 1
+    window.localStorage.setItem('activeAssignID', assignmentID)
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
-        data.forEach(function (object) {
-            html += "<div class='mb-3 row'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+        data.forEach(async function (object){
+            
+            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            if (object.questType == 'Rating') {
+                
+
+                    html += "<input type='number' disabled id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=>"
+                
+            }
+            else {
+ 
+                    html += "<input type='text' disabled id='" + object.quest_ID + "'class='form-control validate' value=''>"           
+
+            }
+
+            html += "</div>"
             count += 1
+
         })
     })
 
     document.getElementById("CompletedAssignmentModalBody").innerHTML = html
+    getRatingResponses('complete')
+    getTextResponses('complete')
 
 
 }
@@ -443,7 +472,7 @@ function createSelf() {
         })
 
 
-    })
+    }).then(function(){handleNewManagerLoad()})
 }
 function createPeer() {
     const AssignURL = "https://localhost:7003/API/Assignment"
@@ -476,8 +505,7 @@ function createPeer() {
         })
 
 
-    })
-
+    }).then(function(){handleNewManagerLoad()})
 }
 function createEmployeeSurvey() {
     const AssignURL = "https://localhost:7003/API/Assignment"
@@ -510,7 +538,7 @@ function createEmployeeSurvey() {
         })
 
 
-    })
+    }).then(function(){handleNewManagerLoad()})
 }
 
 function markCompleted(id = window.localStorage.getItem('activeAssignID')) {
@@ -541,17 +569,24 @@ function markReopen(id = window.localStorage.getItem('activeAssignID')) {
 }
 
 
-function getRatingResponses(questionText){
+function getRatingResponses(emptype){
 
     var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
-    var completedForm = document.getElementById('AssignmentActiveModalBody')
-    let result = questionText.includes("rate")
+    if(emptype == 'employee'){
+        var completedForm = document.getElementById('AssignmentActiveModalBody')
+    }
+    else if(emptype == 'manager'){
+        var completedForm = document.getElementById('ManagerAssignmentActiveModalBody')        
+    }
+    else if(emptype == 'complete'){
+        var completedForm = document.getElementById('CompletedAssignmentModalBody')        
+    }
     Array.from(completedForm.elements).forEach(element =>{
         fetch(ResponseURL).then(async function (response) {
             const data = await response.json();
             data.forEach(function (object) {
-                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && result == true){
+                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && element.type == 'number'){
                     console.log('made it to rating response')
                     element.setAttribute('value', object.rating)
                 }
@@ -559,11 +594,19 @@ function getRatingResponses(questionText){
         })
     })
 }
-function getTextResponses(questionText){
+function getTextResponses(emptype){
 
     var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
-    var completedForm = document.getElementById('AssignmentActiveModalBody')
+    if(emptype == 'employee'){
+        var completedForm = document.getElementById('AssignmentActiveModalBody')
+    }
+    else if(emptype == 'manager'){
+        var completedForm = document.getElementById('ManagerAssignmentActiveModalBody')        
+    }
+    else if(emptype == 'complete'){
+        var completedForm = document.getElementById('CompletedAssignmentModalBody')        
+    }
     Array.from(completedForm.elements).forEach(element =>{
         fetch(ResponseURL).then(async function (response) {
             const data = await response.json();
@@ -612,14 +655,9 @@ function getTextResponses(questionText){
 // }
 
 
-function updateSelfReview(){
-
-}
 
 
-function updateSelfReview() {
 
-}
 function submitReview() {
     const ResponseURL = "https://localhost:7003/API/QuestionResponse"
     var completedForm = document.getElementById('AssignmentActiveModalBody')
@@ -686,12 +724,10 @@ function submitReview() {
     })
 
 }
-function updatePeerReview() {
+function updateReview() {
 
 }
-function updateEmpSurvey() {
 
-}
 
 
 // public int Assign_ID {get; set;}
