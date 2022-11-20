@@ -283,18 +283,21 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
         data.forEach(async function (object){
-            var text = await getTextResponse(object.quest_ID)
-            var rating = await getRatingResponse(object.quest_ID)
+            // var text = await getTextResponse(object.quest_ID)
+            // var rating = await getRatingResponse(object.quest_ID)
             
             html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
             if (object.questType == 'Rating') {
                 
-                    html += "<input type='number' id=" + object.quest_ID + " class='form-control validate' min='0' max='5' value='"+rating+"'>"
+                    //getRatingResponse(object.quest_ID, object.questText)
+                    getRatingResponses(object.questText)
+                    html += "<input type='number' id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=''>"
                 
             }
             else {
-                
-                    html += "<input type='text' id=" + object.quest_ID + " class='form-control validate' value="+text+">"               
+                    //getTextResponse(object.quest_ID, object.questText)
+                    getTextResponses(object.questText)
+                    html += "<input type='text' id='" + object.quest_ID + "'class='form-control validate' value=''>"               
 
             }
 
@@ -307,6 +310,7 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
     document.getElementById("AssignmentActiveModalBody").innerHTML = html
 
 }
+
 async function handleManagerActiveAssignmentModal(assignmentID) {
     const QuestionURL = "https://localhost:7003/API/Question"
     var html = ""
@@ -533,7 +537,7 @@ function markReopen(id = window.localStorage.getItem('activeAssignID')) {
     })
 
 }
-function getTextResponse(questID){
+function getTextResponse(questID, questName){
     var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
     fetch(ResponseURL).then(async function (response) {
@@ -541,13 +545,14 @@ function getTextResponse(questID){
         data.forEach(function (object) {
             if(object.quest_ID == questID && object.assign_ID == activeAssignment){
                 console.log(object.answerText)
+                document.getElementById(questName).setAttribute('value', object.answerText)
                 return object.answerText
             }
         })
     })
 
 }
-function getRatingResponse(questID){
+function getRatingResponse(questID, questName){
     var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
     fetch(ResponseURL).then(async function (response) {
@@ -555,11 +560,45 @@ function getRatingResponse(questID){
         data.forEach(function (object) {
             if(object.quest_ID == questID && object.assign_ID == activeAssignment){
                 console.log(object.rating)
+                document.getElementById(questName).setAttribute('value', object.rating)
                 return object.rating
             }
         })
     })
 
+}
+function getRatingResponses(questionText){
+    var activeAssignment = window.localStorage.getItem('activeAssignID')
+    const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
+    var completedForm = document.getElementById('AssignmentActiveModalBody')
+    let result = questionText.includes("rate")
+    Array.from(completedForm.elements).forEach(element =>{
+        fetch(ResponseURL).then(async function (response) {
+            const data = await response.json();
+            data.forEach(function (object) {
+                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && result){
+                    console.log(object.rating)
+                    element.setAttribute('value', object.rating)
+                }
+            })
+        })
+    })
+}
+function getTextResponses(questionText){
+    var activeAssignment = window.localStorage.getItem('activeAssignID')
+    const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
+    var completedForm = document.getElementById('AssignmentActiveModalBody')
+    Array.from(completedForm.elements).forEach(element =>{
+        fetch(ResponseURL).then(async function (response) {
+            const data = await response.json();
+            data.forEach(function (object) {
+                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && object.questText == questionText){
+                    console.log(object.rating)
+                    element.setAttribute('value', object.answerText)
+                }
+            })
+        })
+    })
 }
 
 // function filter(e){
