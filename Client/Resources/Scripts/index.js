@@ -290,14 +290,14 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
             if (object.questType == 'Rating') {
                 
                     //getRatingResponse(object.quest_ID, object.questText)
-                    getRatingResponses(object.questText)
-                    html += "<input type='number' id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=''>"
+
+                    html += "<input type='number' id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=>"
                 
             }
             else {
                     //getTextResponse(object.quest_ID, object.questText)
-                    getTextResponses(object.questText)
-                    html += "<input type='text' id='" + object.quest_ID + "'class='form-control validate' value=''>"               
+
+                    html += "<input type='text' id='" + object.quest_ID + "'class='form-control validate' value=''>"           
 
             }
 
@@ -308,6 +308,8 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
     })
 
     document.getElementById("AssignmentActiveModalBody").innerHTML = html
+    getRatingResponses('rate')
+    getTextResponses('string')
 
 }
 
@@ -537,37 +539,10 @@ function markReopen(id = window.localStorage.getItem('activeAssignID')) {
     })
 
 }
-function getTextResponse(questID, questName){
-    var activeAssignment = window.localStorage.getItem('activeAssignID')
-    const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
-    fetch(ResponseURL).then(async function (response) {
-        const data = await response.json();
-        data.forEach(function (object) {
-            if(object.quest_ID == questID && object.assign_ID == activeAssignment){
-                console.log(object.answerText)
-                document.getElementById(questName).setAttribute('value', object.answerText)
-                return object.answerText
-            }
-        })
-    })
 
-}
-function getRatingResponse(questID, questName){
-    var activeAssignment = window.localStorage.getItem('activeAssignID')
-    const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
-    fetch(ResponseURL).then(async function (response) {
-        const data = await response.json();
-        data.forEach(function (object) {
-            if(object.quest_ID == questID && object.assign_ID == activeAssignment){
-                console.log(object.rating)
-                document.getElementById(questName).setAttribute('value', object.rating)
-                return object.rating
-            }
-        })
-    })
 
-}
 function getRatingResponses(questionText){
+
     var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
     var completedForm = document.getElementById('AssignmentActiveModalBody')
@@ -576,8 +551,8 @@ function getRatingResponses(questionText){
         fetch(ResponseURL).then(async function (response) {
             const data = await response.json();
             data.forEach(function (object) {
-                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && result){
-                    console.log(object.rating)
+                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && result == true){
+                    console.log('made it to rating response')
                     element.setAttribute('value', object.rating)
                 }
             })
@@ -585,6 +560,7 @@ function getRatingResponses(questionText){
     })
 }
 function getTextResponses(questionText){
+
     var activeAssignment = window.localStorage.getItem('activeAssignID')
     const ResponseURL = "https://localhost:7003/API/QuestionResponse/"
     var completedForm = document.getElementById('AssignmentActiveModalBody')
@@ -592,8 +568,8 @@ function getTextResponses(questionText){
         fetch(ResponseURL).then(async function (response) {
             const data = await response.json();
             data.forEach(function (object) {
-                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && object.questText == questionText){
-                    console.log(object.rating)
+                if(object.quest_ID == element.id && object.assign_ID == activeAssignment && element.type == 'text'){
+                    console.log('made it to text response')
                     element.setAttribute('value', object.answerText)
                 }
             })
