@@ -43,6 +43,11 @@ namespace API.Controllers
                 SubmitReponses statusChange = new SubmitReponses();
                 statusChange.awaitingStatus(newResponse.Assign_ID);
             }
+            else if(newResponse.Response_ID == 2)
+            {
+                SubmitReponses statusChange = new SubmitReponses();
+                statusChange.inProgressStatus(newResponse.Assign_ID);
+            }
             else
             {
                 IUpdateResponse submission = new SubmitReponses();

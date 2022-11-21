@@ -78,7 +78,7 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
             if (object.assignStatus == "Completed ☑") {
                 html += "<td style='background-color:green;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
             }
-            else if (object.assignStatus == "Overdue !!") {
+            else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
@@ -114,7 +114,7 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
             if (object.assignStatus == "Completed ☑") {
                 html += "<td style='background-color:green;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
             }
-            else if (object.assignStatus == "Overdue !!") {
+            else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
@@ -152,7 +152,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
             if (object.assignStatus == "Completed ☑") {
                 html += "<td style='background-color:green;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
             }
-            else if (object.assignStatus == "Overdue !!") {
+            else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
@@ -172,6 +172,46 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
     document.getElementById("Assigned Tasks Table").innerHTML = html
    
 
+}
+
+async function filterAssignedTaskTable(empId = window.localStorage.getItem('empId')){
+    console.log("made it to filter function")
+    const AssignURL = "https://localhost:7003/API/ManagerAssignment"
+    var html = ""
+    await fetch(AssignURL + "/" + empId).then(async function (response) {
+        const data = await response.json();
+        const sortedData = data.sort((a, b) => b.dueDate - a.dueDate)
+        var empName = document.getElementById('employeeFilter').value.toLowerCase()
+        sortedData.forEach(function (object) {
+            if(object.assignedTo.toLowerCase().includes(empName)){
+            html += "<tr>"
+            html += "<td>"
+            html += "<div class='d-flex align-items-center'>"
+            html += "<p class='fw-bold mb-1'>" + object.assignTitle + "</p>"
+            html += "</div></td>"
+            if (object.assignStatus == "Completed ☑") {
+                html += "<td style='background-color:green;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
+                html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
+                html += "<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+
+            }
+            else {
+                html += "<td><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
+            html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
+            html += "<td><p class='fw-bold mb-1'>" + object.assignedTo + "</p>"
+            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
+
+            }
+        })
+    })
+
+    document.getElementById("Assigned Tasks Table").innerHTML = html
 }
 
 async function handleCompletedTaskTable(empId = window.localStorage.getItem('empId')) {
@@ -289,6 +329,11 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
 
                     html += "<input type='number' id='" + object.quest_ID + "'class='form-control validate' min='0' max='5' value=>"
                 
+            }
+            else if (object.questType == 'Binary') {
+                
+
+                html += "<input type='text' id='" + object.quest_ID + "'class='form-control validate' value='' placeholder='Please enter Yes/No'>"             
             }
             else {
  
@@ -620,44 +665,6 @@ function getTextResponses(emptype){
     })
 }
 
-// function filter(e){
-//    let results; 
-//    let temp = " "; 
-
-//    results = table.filter( item => 
-//    item.assignedTo.includes(e.target.value.toLowerCase()));
-
-//     if(results.length>0){
-//         fetch(AssignURL, {
-//             method: 'POST',
-//             headers: {
-//                 "Accept": 'application/json',
-//                 "Content-Type" : 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 Assign_ID : 1,
-//                 IsComplete : false,
-//                 IsManagerApproved : false,
-//                 AssignStatus : 'Not Started :(',
-//                 DueDate : DueTime.toString(),
-//                 StatusDate : statusTime.toString(),
-//                 AssignTitle : 'Self Review',
-//                 AssignedBy : sendfrom,
-//                 AssignedTo : sendTo
-//             })
-            
-    
-//         })
-//     }else {
-//         temp = `<div class = "no-item =Item Not Found </div>`
-//     }
-//     output.innerHTML=temp;
-// }
-
-
-
-
-
 function submitReview() {
     const ResponseURL = "https://localhost:7003/API/QuestionResponse"
     var completedForm = document.getElementById('AssignmentActiveModalBody')
@@ -725,8 +732,72 @@ function submitReview() {
 
 }
 function updateReview() {
+    const ResponseURL = "https://localhost:7003/API/QuestionResponse"
+    var completedForm = document.getElementById('AssignmentActiveModalBody')
+    Array.from(completedForm.elements).forEach(element => {
+        console.log(element.id)
+        if (isNaN(element.value)) {
+            fetch(ResponseURL, {
+                method: 'POST',
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    Response_ID: 1,
+                    AnswerText: element.value,
+                    Rating: 0,
+                    Assign_ID: window.localStorage.getItem('activeAssignID'),
+                    Quest_ID: element.id
+
+                })
+
+            })
+        }
+        else{
+            fetch(ResponseURL, {
+                method: 'POST',
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type" : 'application/json'
+                },
+                body: JSON.stringify({
+                    Response_ID : 1,
+                    AnswerText : "Invalid",
+                    Rating : element.value,
+                    Assign_ID : window.localStorage.getItem('activeAssignID'),
+                    Quest_ID : element.id
+        
+                })
+        
+            })
+        }
+
+
+    })
+
+    fetch(ResponseURL, {
+        method: 'POST',
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+            Response_ID: 2,
+            AnswerText: "dummy",
+            Rating: 0,
+            Assign_ID: window.localStorage.getItem('activeAssignID'),
+            Quest_ID: 0
+
+        })
+
+    }).then(function () {
+        handleActiveTaskTable()
+        handleCompletedTaskTable()
+    })
 
 }
+
 
 
 

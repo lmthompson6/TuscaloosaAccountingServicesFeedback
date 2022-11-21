@@ -12,8 +12,9 @@ namespace API.Database
             con.Open();
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"update assignment set isComplete =1, IsManagerApproved =1, assignStatus = 'Completed ☑' where assign_ID = @id";
+            cmd.CommandText = @"update assignment set isComplete =1, IsManagerApproved =1, assignStatus = 'Completed ☑', statusDate = @statusDate where assign_ID = @id";
             cmd.Parameters.AddWithValue("@id", assignmentNum);
+            cmd.Parameters.AddWithValue("@statusDate", DateTime.Now);
             cmd.Prepare();
             cmd.ExecuteNonQuery();            
         }

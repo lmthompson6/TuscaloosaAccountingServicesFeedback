@@ -30,8 +30,22 @@ namespace API.Database
             con.Open();
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"update assignment set isComplete =1, IsManagerApproved =0, assignStatus = 'Awaiting Manager Approval ...' where assign_ID = @id";
+            cmd.CommandText = @"update assignment set isComplete =1, IsManagerApproved =0, assignStatus = 'Awaiting Manager Approval ...', statusDate = @statusDate where assign_ID = @id";
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@statusDate", DateTime.Now);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery(); 
+        }
+        public void inProgressStatus(int id){
+            ConnectionString myConnection = new ConnectionString();
+            string cs = myConnection.cs;
+            using var con = new MySqlConnection(cs);
+            con.Open();
+            using var cmd = new MySqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"update assignment set isComplete =0, IsManagerApproved =0, assignStatus = 'In Progress ...', statusDate = @statusDate where assign_ID = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@statusDate", DateTime.Now);
             cmd.Prepare();
             cmd.ExecuteNonQuery(); 
         }
