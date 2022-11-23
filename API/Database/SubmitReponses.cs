@@ -24,15 +24,19 @@ namespace API.Database
             
         }
         public void awaitingStatus(int id){
+            DateTime dueDate = new DateTime();
+            dueDate = DateTime.Now;
+            dueDate = dueDate.AddDays(3);
             ConnectionString myConnection = new ConnectionString();
             string cs = myConnection.cs;
             using var con = new MySqlConnection(cs);
             con.Open();
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"update assignment set isComplete =1, IsManagerApproved =0, assignStatus = 'Awaiting Manager Approval ...', statusDate = @statusDate where assign_ID = @id";
+            cmd.CommandText = @"update assignment set isComplete =1, IsManagerApproved =0, assignStatus = 'Awaiting Manager Approval ...', dueDate = @due, statusDate = @statusDate where assign_ID = @id";
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@statusDate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@due", dueDate);
             cmd.Prepare();
             cmd.ExecuteNonQuery(); 
         }

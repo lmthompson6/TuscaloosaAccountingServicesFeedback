@@ -18,9 +18,8 @@ function handleNewManagerLoad() {
     handleAssignedTaskTable();
     handleManagerCompletedTaskTable();
     
-    $(document).ready( function () {
-        $('.make-jquery-table').DataTable();
-    } );
+    document.getElementById('employeeFilter').addEventListener('input', (event) => filterAssignedTaskTable(),false)
+
 }
 
 async function handleLoginClick() {
@@ -70,6 +69,7 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
         const data = await response.json();
         const sortedData = data.sort((a, b) => b.dueDate - a.dueDate)
         sortedData.forEach(function (object) {
+            var tempDue = new Date(object.dueDate)
             html += "<tr>"
             html += "<td>"
             html += "<div class='d-flex align-items-center'>"
@@ -80,6 +80,9 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
             }
             else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            else if (tempDue < Date.now()) {
+                html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>Overdue !!</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
                 html += "<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
@@ -106,6 +109,7 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
         const data = await response.json();
         const sortedData = data.sort((a, b) => b.dueDate - a.dueDate)
         sortedData.forEach(function (object) {
+            var tempDue = new Date(object.dueDate)
             html += "<tr>"
             html += "<td>"
             html += "<div class='d-flex align-items-center'>"
@@ -116,6 +120,9 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
             }
             else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            else if (tempDue < Date.now()) {
+                html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>Overdue !!</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
                 html += "<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
@@ -144,6 +151,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
         const data = await response.json();
         const sortedData = data.sort((a, b) => b.dueDate - a.dueDate)
         sortedData.forEach(function (object) {
+            var tempDue = new Date(object.dueDate)
             html += "<tr>"
             html += "<td>"
             html += "<div class='d-flex align-items-center'>"
@@ -154,6 +162,9 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
             }
             else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            else if (tempDue < Date.now()) {
+                html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>Overdue !!</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
                 html += "<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
@@ -174,6 +185,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
 
 }
 
+
 async function filterAssignedTaskTable(empId = window.localStorage.getItem('empId')){
     console.log("made it to filter function")
     const AssignURL = "https://localhost:7003/API/ManagerAssignment"
@@ -184,6 +196,7 @@ async function filterAssignedTaskTable(empId = window.localStorage.getItem('empI
         var empName = document.getElementById('employeeFilter').value.toLowerCase()
         sortedData.forEach(function (object) {
             if(object.assignedTo.toLowerCase().includes(empName)){
+            var tempDue = new Date(object.dueDate)
             html += "<tr>"
             html += "<td>"
             html += "<div class='d-flex align-items-center'>"
@@ -194,6 +207,9 @@ async function filterAssignedTaskTable(empId = window.localStorage.getItem('empI
             }
             else if (object.assignStatus == "Overdue !!" || object.assignStatus == "Reopened !!") {
                 html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
+            }
+            else if (tempDue < Date.now()) {
+                html += "<td style='background-color:red;color:white'><p class='fw-bold mb-1'>Overdue !!</p>"
             }
             else if (object.assignStatus == "Awaiting Manager Approval ..." || object.assignStatus == "In Progress ...") {
                 html += "<td style='background-color:yellow;color:black'><p class='fw-bold mb-1'>" + object.assignStatus + "</p>"
