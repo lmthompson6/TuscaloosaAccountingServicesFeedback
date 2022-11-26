@@ -12,6 +12,7 @@ namespace API.Models
         public string AssignedBy {get; set;}
         public string AssignedTo {get; set;}
         public int Assess_ID {get; set;}
+        public string IsReviewing {get; set;}
         
     }
 }

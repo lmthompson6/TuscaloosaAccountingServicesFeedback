@@ -94,7 +94,14 @@ async function handleActiveTaskTable(empId = window.localStorage.getItem('empId'
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedBy + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, " + object.assess_ID + ")'>View</button></td>"
+            if(object.assess_ID === 2){
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name="+object.isReviewing+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, " + object.assess_ID + ", this.name)'>View</button></td>"
+
+            }
+            else{
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name='' data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, " + object.assess_ID + ", this.name)'>View</button></td>"
+
+            }
         })
     })
 
@@ -134,7 +141,14 @@ async function handleManagerActiveTaskTable(empId = window.localStorage.getItem(
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedTo + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#ManagerActiveAssignmentModal' onclick='handleManagerActiveAssignmentModal(this.id)'>View</button></td>"
+            if(object.assess_ID === 2){
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name="+object.isReviewing+" data-bs-toggle='modal' data-bs-target='#ManagerActiveAssignmentModal' onclick='handleManagerActiveAssignmentModal(this.id, this.name)'>View</button></td>"
+
+            }
+            else{
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name='' data-bs-toggle='modal' data-bs-target='#ManagerActiveAssignmentModal' onclick='handleManagerActiveAssignmentModal(this.id, this.name)'>View</button></td>"
+
+            }
         })
     })
 
@@ -176,7 +190,14 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedTo + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
+            if(object.assess_ID === 2){
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name="+object.isReviewing+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, 2, this.name)'>View</button></td>"
+
+            }
+            else{
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name='' data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, "+object.assess_ID+",this.name)'>View</button></td>"
+
+            }
         })
     })
 
@@ -221,8 +242,14 @@ async function filterAssignedTaskTable(empId = window.localStorage.getItem('empI
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedTo + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id)'>View</button></td>"
+            if(object.assess_ID === 2){
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name="+object.isReviewing+" data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, 2, this.name)'>View</button></td>"
 
+            }
+            else{
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name='' data-bs-toggle='modal' data-bs-target='#AssignmentModal' onclick='handleActiveAssignmentModal(this.id, "+object.assess_ID+",this.name)'>View</button></td>"
+
+            }
             }
         })
     })
@@ -258,7 +285,14 @@ async function handleCompletedTaskTable(empId = window.localStorage.getItem('emp
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedBy + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id)'>View</button></td>"
+            if(object.assess_ID === 2){
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name="+object.isReviewing+" data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id, 2, this.name)'>View</button></td>"
+
+            }
+            else{
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name='' data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id, "+object.assess_ID+",this.name)'>View</button></td>"
+
+            }
         })
     })
 
@@ -329,17 +363,21 @@ function loadEmployeeTab() {
     handleNewManagerLoad()
 }
 
-async function handleActiveAssignmentModal(assignmentID, assessmentID) {
+async function handleActiveAssignmentModal(assignmentID, assessmentID, isReviewingText) {
     const QuestionURL = "https://localhost:7003/API/Question"
     window.localStorage.setItem('activeAssignID', assignmentID)
     window.localStorage.setItem('activeAssessmentID', assessmentID)
+    console.log(assignmentID)
+    console.log(assessmentID)
+    console.log(isReviewingText)
     var html = ""
     var count = 1
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
         data.forEach(async function (object){
+            let textTest = object.questText.replace("[Employee's name]", isReviewingText+"'s")
             
-            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + textTest + "</label>"
             if (object.questType == 'Rating') {
                 
 
@@ -369,7 +407,7 @@ async function handleActiveAssignmentModal(assignmentID, assessmentID) {
 
 }
 
-async function handleManagerActiveAssignmentModal(assignmentID) {
+async function handleManagerActiveAssignmentModal(assignmentID, isReviewingText) {
     const QuestionURL = "https://localhost:7003/API/Question"
     var html = ""
     var count = 1
@@ -377,8 +415,9 @@ async function handleManagerActiveAssignmentModal(assignmentID) {
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
         data.forEach(async function (object){
+            let textTest = object.questText.replace("[Employee's name]", isReviewingText+"'s")
             
-            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + textTest + "</label>"
             if (object.questType == 'Rating') {
                 
 
@@ -410,8 +449,10 @@ async function handleCompletedAssignmentModal(assignmentID) {
     await fetch(QuestionURL + "/" + assignmentID).then(async function (response) {
         const data = await response.json();
         data.forEach(async function (object){
+            let textTest = object.questText.replace("[Employee's name]", isReviewingText+"'s")
+
             
-            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + object.questText + "</label>"
+            html += "<div class='mb-3 row' style='text-align: left'><label class='col-form-label'>" + count + ". " + textTest + "</label>"
             if (object.questType == 'Rating') {
                 
 
@@ -539,6 +580,7 @@ function createPeer() {
     const AssignURL = "https://localhost:7003/API/Assignment"
     const sendTo = document.getElementById('inputPeerID').value
     const sendfrom = window.localStorage.getItem('empId')
+    const reviewing = document.getElementById('inputPeerName').value
     console.log(sendTo)
     console.log(sendfrom)
     var DueTime = new Date();
@@ -562,7 +604,8 @@ function createPeer() {
             StatusDate: statusTime.toString(),
             AssignTitle: 'Peer Review',
             AssignedBy: sendfrom,
-            AssignedTo: sendTo
+            AssignedTo: sendTo,
+            IsReviewing: reviewing
         })
 
 

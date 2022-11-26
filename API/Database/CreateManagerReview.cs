@@ -16,7 +16,7 @@ namespace API.Database
             con.Open();
             using var cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"INSERT INTO assignment values (null, 0, 0, 'Not Started :(', @duedate, @statusdate, 'Employee Survey', @assignedby, @assignedto, 3)";
+            cmd.CommandText = @"INSERT INTO assignment values (null, 0, 0, 'Not Started :(', @duedate, @statusdate, 'Employee Survey', @assignedby, @assignedto, 3, '')";
             cmd.Parameters.AddWithValue("@duedate", dueDate);
             cmd.Parameters.AddWithValue("@statusdate", DateTime.Now);
             cmd.Parameters.AddWithValue("@assignedby", newAssign.AssignedBy);
