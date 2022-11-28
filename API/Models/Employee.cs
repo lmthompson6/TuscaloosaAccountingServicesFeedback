@@ -9,8 +9,6 @@ namespace API.Models
        public string FirstName {get; set;}
        public string LastName {get; set;}
        public string PasswordHash {get; set;}
-       // add something to handle the manager/employee relationship
-
-       //hello
+       public int ManagedBy {get; set;}
     }
 }

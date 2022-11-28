@@ -498,7 +498,7 @@ async function handleNewSelfAssignmentList() {
         const data = await response.json();
         data.forEach(function (object) {
 
-            if (object.isManager == false && object.isActive == true) {
+            if (object.isManager == false && object.isActive == true && object.managedBy == window.localStorage.getItem('empId')) {
                 html += "<tr>"
                 html += "<td>"
                 html += "<div class='d-flex align-items-center'>"
@@ -519,7 +519,7 @@ async function handleNewPeerAssignmentList() {
         const data = await response.json();
         data.forEach(function (object) {
 
-            if (object.isManager == false && object.isActive == true) {
+            if (object.isManager == false && object.isActive == true && object.managedBy == window.localStorage.getItem('empId')) {
                 html += "<tr>"
                 html += "<td>"
                 html += "<div class='d-flex align-items-center'>"
@@ -541,7 +541,7 @@ async function handleNewManagerAssignmentList() {
         const data = await response.json();
         data.forEach(function (object) {
 
-            if (object.isManager == false && object.isActive == true) {
+            if (object.isManager == false && object.isActive == true && object.managedBy == window.localStorage.getItem('empId')) {
                 html += "<tr>"
                 html += "<td>"
                 html += "<div class='d-flex align-items-center'>"

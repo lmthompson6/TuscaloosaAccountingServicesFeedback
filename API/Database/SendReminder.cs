@@ -22,5 +22,22 @@ namespace API.Database
             smtp.EnableSsl = true;
             smtp.Send(message);
         }
+
+        public void EmailConfirmation(string emailAddress)
+        {
+            System.Console.WriteLine("Made it to confirmation");
+            MailMessage message = new MailMessage();
+
+            message.Subject = "Your Feedback Assignment is fully complete!";
+            message.Body = "Hello, this is a notification that your Feedback Assignment in the Tuscaloosa Accounting Services Feedback Portal has been certified as complete by your manager. \n\nThank you,\nTAS Management";
+            message.From = new MailAddress("misprojectuofalabama@gmail.com", "Tuscaloosa Accounting Services");
+            message.To.Add(new MailAddress(emailAddress));
+            message.IsBodyHtml = false;
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new System.Net.NetworkCredential("misprojectuofalabama@gmail.com", "puoyuntizuijflrv");
+            smtp.EnableSsl = true;
+            smtp.Send(message);
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace API.Database
         }
 
         public string GetEmailAddress(int id){
+            System.Console.WriteLine("Made it to get email address");
             string newEmailAddress = "";
             ConnectionString myConnection = new ConnectionString();
             string cs = myConnection.cs;

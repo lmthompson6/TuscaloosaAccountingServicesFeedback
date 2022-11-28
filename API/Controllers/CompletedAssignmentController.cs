@@ -62,6 +62,11 @@ namespace API.Controllers
         {
             MarkAsComplete newUpdate = new MarkAsComplete();
             newUpdate.completeAssignment(id);
+            GetSpecificAssignment tempAssign = new GetSpecificAssignment();
+            string emailAddy = tempAssign.GetEmailAddress(id);
+            Console.WriteLine(emailAddy);
+            SendReminder reminder = new SendReminder();
+            reminder.EmailConfirmation(emailAddy);
         }
     }
 }
