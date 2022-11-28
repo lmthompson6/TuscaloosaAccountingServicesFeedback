@@ -39,5 +39,21 @@ namespace API.Database
             smtp.EnableSsl = true;
             smtp.Send(message);
         }
+        public void EmailNewAssign(string due, string emailAddress)
+        {
+            System.Console.WriteLine("Made it to confirmation");
+            MailMessage message = new MailMessage();
+
+            message.Subject = "You have a Feedback Assignment to complete!";
+            message.Body = "Hello, this is a notification that you have a new Feedback Assignment in the Tuscaloosa Accounting Services Feedback Portal.\n\nThe due date is: "+due+" \n\nThank you,\nTAS Management";
+            message.From = new MailAddress("misprojectuofalabama@gmail.com", "Tuscaloosa Accounting Services");
+            message.To.Add(new MailAddress(emailAddress));
+            message.IsBodyHtml = false;
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new System.Net.NetworkCredential("misprojectuofalabama@gmail.com", "puoyuntizuijflrv");
+            smtp.EnableSsl = true;
+            smtp.Send(message);
+        }
     }
 }

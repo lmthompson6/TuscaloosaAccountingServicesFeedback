@@ -50,15 +50,24 @@ namespace API.Controllers
             if(newAssignment.AssignTitle == "Self Review"){
                 ICreateAssignment newSelf = new CreateSelfReview();
                 newSelf.createAssignment(newAssignment);
+                SendReminder newAssignEmail = new SendReminder();
+                GetSpecificAssignment email = new GetSpecificAssignment();
+                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedTo)));
             }
             else if(newAssignment.AssignTitle == "Peer Review"){
                 ICreateAssignment newPeer = new CreatePeerReview();
                 newPeer.createAssignment(newAssignment);
+                SendReminder newAssignEmail = new SendReminder();
+                GetSpecificAssignment email = new GetSpecificAssignment();
+                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedTo)));
 
             }
             else if(newAssignment.AssignTitle == "Employee Survey"){
                 ICreateAssignment newMan = new CreateManagerReview();
                 newMan.createAssignment(newAssignment);
+                SendReminder newAssignEmail = new SendReminder();
+                GetSpecificAssignment email = new GetSpecificAssignment();
+                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedTo)));
             }
         }
 
