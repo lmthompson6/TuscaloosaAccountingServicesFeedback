@@ -441,7 +441,7 @@ async function handleManagerActiveAssignmentModal(assignmentID, isReviewingText)
 
 
 }
-async function handleCompletedAssignmentModal(assignmentID) {
+async function handleCompletedAssignmentModal(assignmentID, assessmentID, isReviewingText) {
     const QuestionURL = "https://localhost:7003/API/Question"
     var html = ""
     var count = 1
@@ -570,7 +570,9 @@ function createSelf() {
             StatusDate: statusTime.toString(),
             AssignTitle: 'Self Review',
             AssignedBy: sendfrom,
-            AssignedTo: sendTo
+            AssignedTo: sendTo,
+            Assess_ID: 1,
+            IsReviewing: "string"
         })
 
 
@@ -605,6 +607,7 @@ function createPeer() {
             AssignTitle: 'Peer Review',
             AssignedBy: sendfrom,
             AssignedTo: sendTo,
+            Assess_ID: 1,
             IsReviewing: reviewing
         })
 
@@ -638,7 +641,9 @@ function createEmployeeSurvey() {
             StatusDate: statusTime.toString(),
             AssignTitle: 'Employee Survey',
             AssignedBy: sendfrom,
-            AssignedTo: sendTo
+            AssignedTo: sendTo,
+            Assess_ID: 1,
+            IsReviewing: "string"
         })
 
 
@@ -855,6 +860,32 @@ function updateReview() {
         handleCompletedTaskTable()
     })
 
+}
+
+function ReminderEmail(){
+    const assessURL = "https://localhost:7003/API/Assessment"
+    fetch(assessURL, {
+        method: 'POST',
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+            Assign_ID: window.localStorage.getItem('activeAssignID'),
+            IsComplete: false,
+            IsManagerApproved: false,
+            AssignStatus: 'Not Started :(',
+            DueDate: "1/1/2022",
+            StatusDate: "1/1/2022",
+            AssignTitle: 'Self Review',
+            AssignedBy: "sendfrom",
+            AssignedTo: "sendTo",
+            Assess_ID: 1,
+            IsReviewing: "string"
+        })
+
+
+    })
 }
 
 
