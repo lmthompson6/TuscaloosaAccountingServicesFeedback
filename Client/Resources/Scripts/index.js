@@ -5,7 +5,13 @@ function handleOnLoad() {
         console.log(response)
         return response.json();
     })
-   
+
+    document.getElementById('typePasswordX-2').addEventListener('keypress', function(event){
+        if(event.key === "Enter"){
+            handleLoginClick();
+        }
+    })
+
     
 }
 function handleNewLoad() {
@@ -329,7 +335,14 @@ async function handleManagerCompletedTaskTable(empId = window.localStorage.getIt
             html += "<td><p class='fw-bold mb-1'>" + object.dueDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.statusDate + "</p>"
             html += "<td><p class='fw-bold mb-1'>" + object.assignedTo + "</p>"
-            html += "<td><button class='btn btn-link' id=" + object.assign_ID + " data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id); loadManagerTab()'>View</button></td>"
+            if(object.assess_ID === 2){
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name="+object.isReviewing+" data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id, 2, this.name); loadManagerTab()'>View</button></td>"
+
+            }
+            else{
+                html += "<td><button class='btn btn-link' id=" + object.assign_ID + " name='' data-bs-toggle='modal' data-bs-target='#CompletedAssignmentModal' onclick='handleCompletedAssignmentModal(this.id, "+object.assess_ID+",this.name); loadManagerTab()'>View</button></td>"
+
+            }
         })
     })
 
