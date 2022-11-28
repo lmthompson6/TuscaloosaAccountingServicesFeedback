@@ -214,7 +214,6 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
 
 
 async function filterAssignedTaskTable(empId = window.localStorage.getItem('empId')){
-    console.log("made it to filter function")
     const AssignURL = "https://localhost:7003/API/ManagerAssignment"
     var html = ""
     await fetch(AssignURL + "/" + empId).then(async function (response) {
