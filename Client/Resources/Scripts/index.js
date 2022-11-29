@@ -169,7 +169,7 @@ async function handleAssignedTaskTable(empId = window.localStorage.getItem('empI
     var html = ""
     await fetch(AssignURL + "/" + empId).then(async function (response) {
         const data = await response.json();
-        const sortedData = data.sort((a, b) => b.dueDate - a.dueDate)
+        const sortedData = data.sort((a, b) => b.assignedTo - a.assignedTo)
         sortedData.forEach(function (object) {
             var tempDue = new Date(object.dueDate)
             html += "<tr>"
@@ -218,7 +218,7 @@ async function filterAssignedTaskTable(empId = window.localStorage.getItem('empI
     var html = ""
     await fetch(AssignURL + "/" + empId).then(async function (response) {
         const data = await response.json();
-        const sortedData = data.sort((a, b) => b.dueDate - a.dueDate)
+        const sortedData = data.sort((a, b) => b.assignedTo - a.assignedTo)
         var empName = document.getElementById('employeeFilter').value.toLowerCase()
         sortedData.forEach(function (object) {
             if(object.assignedTo.toLowerCase().includes(empName)){

@@ -52,14 +52,14 @@ namespace API.Controllers
                 newSelf.createAssignment(newAssignment);
                 SendReminder newAssignEmail = new SendReminder();
                 GetSpecificAssignment email = new GetSpecificAssignment();
-                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedTo)));
+                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedBy)));
             }
             else if(newAssignment.AssignTitle == "Peer Review"){
                 ICreateAssignment newPeer = new CreatePeerReview();
                 newPeer.createAssignment(newAssignment);
                 SendReminder newAssignEmail = new SendReminder();
                 GetSpecificAssignment email = new GetSpecificAssignment();
-                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedTo)));
+                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedBy)));
 
             }
             else if(newAssignment.AssignTitle == "Employee Survey"){
@@ -67,7 +67,7 @@ namespace API.Controllers
                 newMan.createAssignment(newAssignment);
                 SendReminder newAssignEmail = new SendReminder();
                 GetSpecificAssignment email = new GetSpecificAssignment();
-                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedTo)));
+                newAssignEmail.EmailNewAssign(newAssignment.DueDate, email.GetEmailAddress(int.Parse(newAssignment.AssignedBy)));
             }
         }
 
